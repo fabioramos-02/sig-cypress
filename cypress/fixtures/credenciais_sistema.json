@@ -1,0 +1,13 @@
+{
+    "credenciais": [
+        {
+            "login": "grupo1_gestor@sig.com",
+            "senha": "Grupo1@sig"
+        },
+        {
+            "login": "grupo1_pesq@sig.com",
+            "senha": "Grupo1@sig"
+        }
+    ],
+    "url_sistema": "https://novo-sig.ledes.net/"
+}
