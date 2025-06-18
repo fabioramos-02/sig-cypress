@@ -1,5 +1,6 @@
+import 'cypress-iframe';
+import 'cypress-real-events';
 // cypress/support/commands.ts
-
 Cypress.Commands.add('typelogin', () => {
   // Carregar o arquivo JSON de credenciais
   cy.fixture('credenciais_sistema.json').then((credenciais) => {
