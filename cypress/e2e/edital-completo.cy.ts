@@ -24,11 +24,12 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         cy.get('[data-cy="pesquisadorSubmeterVariasPropostas"]').check(); //Marca a opção "Pesquisador pode submeter várias propostas"
 
         // Em Termo de Aceite
-    // Adicionar um texto de Termo de Aceite
-    cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba Termo de Aceite
-    cy.get('.ck-editor__editable', { timeout: 10000 }).should('be.visible'); // Espera o editor carregar
-    cy.get('.ck-editor__editable').clear().realType('Termo de Aceite do Edital de Teste do grupo Fabio Ramos', { delay: 0 }); // Insere o texto com realType
-        
+        // Adicionar um texto de Termo de Aceite
+        cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba Termo de Aceite
+        cy.get('.ck-editor__editable', { timeout: 5000 }).should('be.visible'); // Espera o editor carregar
+        cy.get('.ck-editor__editable').clear().realType('Termo de Aceite do Edital de Teste do grupo Fabio Ramos', { delay: 0 }); // Insere o texto com realType
+
+        // Em Cronograma
         cy.get('[data-cy="cronograma"]').click(); //Clica na aba Cronograma para seguir para a página de Cronograma
         cy.get('[data-cy="periodo-de-submissao"]').click(); //Clica na aba Período de Submissão para seguir para a página de Período de Submissão
         cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" para criar um novo Período de Submissão
