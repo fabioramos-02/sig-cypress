@@ -8,18 +8,31 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
 
     it.only('Realiza login no sistema e cria um edital completo', () => {
         // Início do Teste de Edição Completo (E.C.)
+        //Informações do Edital
         preencherInformacoesDoEdital();
         // preencherRestricoes();
         // preencherTermoDeAceite();
         // preencherTextoDoEdital();
         // preencherAbrangencia();
         // preencherInformacoesComplementares();
+
+        // Cronograma
         // preencherCronograma();
+
+        // Orçamento
         // preencherOrcamento();
         // preencherRubricas();
-        preencherFaixasDeFinanciamento();
+        // preencherFaixasDeFinanciamento();
+
+        //Documentos
         // preencherDocumentos();
-        // preencherPerguntas();
+        // preencherDocumentosPessoais();
+
+        // Perguntas
+        preencherDescricaoDoProjeto();
+        // preencherIndicadoresDeProducao();
+
+        // Bolsas do Edital
         // preencherBolsas();
 
         // Finalizar o processo de criação do edital
@@ -130,7 +143,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         for (let i = 1; i <= 5; i++) {
             cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Faixa de Financiamento
 
-            cy.get('[data-cy="faixaFinanciamentoUnsaved.nome"]').type(faixas[i-1], { delay: 1 }); // Preenche o nome da Faixa de Financiamento
+            cy.get('[data-cy="faixaFinanciamentoUnsaved.nome"]').type(faixas[i - 1], { delay: 1 }); // Preenche o nome da Faixa de Financiamento
 
             // Preenche o valor mínimo apenas para a primeira faixa
             if (i === 1) {
@@ -151,21 +164,70 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
 
     // Função para preencher os Documentos da Proposta
     const preencherDocumentos = () => {
+        cy.get('[data-cy="documentos"]').click(); // Clica na aba Documentos
         cy.get('[data-cy="documentos-da-proposta"]').click(); // Clica na aba Documentos da Proposta
-        cy.get('[data-cy="add-documento"]').click(); // Clica para adicionar um novo Documento da Proposta
-        for (let i = 0; i < 2; i++) {
-            cy.get('[data-cy="documento-input"]').type(`Documento da Proposta ${i + 1}`, { delay: 0 });
-        }
+        cy.get('[data-cy="documentoPropostaEdital-adicionar"]').click(); // Clica no botão "Adicionar" Documento da Proposta
 
+        cy.get('.MuiAccordionSummary-content > :nth-child(1)').click(); // Clica no campo de seleção de Documento
+        cy.get('[data-cy="documentoPropostaEdital.0.nome"]').type('Documento de Proposta 1', { delay: 0 }); // Preenche o nome do Documento da Proposta
+        cy.get('[data-cy="documentoPropostaEdital.0.descricao"]').type('Descrição do Documento de Proposta 1', { delay: 0 }); // Preenche a descrição do Documento da Proposta
+        cy.get('[data-cy="documentoPropostaEdital.0.formatoArquivo"]').click(); // Clica no campo de seleção de Formato de Arquivo
+        cy.get('[data-cy-index="documentoPropostaEdital.0.formatoArquivo-item-5"]').click(); // Seleciona o formato "JPG"
+        cy.get('[data-cy="documentoPropostaEdital.0.tamanhoArquivo"]').type('5', { delay: 0 }); // Preenche o tamanho do arquivo em MB
+
+        cy.get('[data-cy="documentoPropostaEdital-adicionar"]').click(); // Clica novamente no botão "Adicionar" Documento da Proposta
+        cy.get('[data-cy="documentoPropostaEdital--expandable-item"] > .MuiAccordionSummary-root > .MuiAccordionSummary-content > :nth-child(1)').click(); // Clica no campo de seleção de Documento
+        cy.get('[data-cy="documentoPropostaEdital.1.nome"]').type('Documento de Proposta 2', { delay: 0 }); // Preenche o nome do Documento da Proposta
+        cy.get('[data-cy="documentoPropostaEdital.1.descricao"]').type('Teste documento 2', { delay: 0 }); // Preenche a descrição do Documento da Proposta
+        cy.get('[data-cy="documentoPropostaEdital.1.formatoArquivo"]').click(); // Clica no campo de seleção de Formato de Arquivo
+        cy.get('[data-cy-index="documentoPropostaEdital.1.formatoArquivo-item-5"]').click(); // Seleciona o formato "JPG"
+        cy.get('[data-cy="documentoPropostaEdital.1.tamanhoArquivo"]').type('5', { delay: 0 }); // Preenche o tamanho do arquivo em MB
+    };
+
+    const preencherDocumentosPessoais = () => {
+        cy.get('[data-cy="documentos"]').click(); // Clica na aba Documentos
         cy.get('[data-cy="documentos-pessoais"]').click(); // Clica na aba Documentos Pessoais
+
+        // Loop para adicionar 5 documentos pessoais
         for (let i = 0; i < 5; i++) {
-            cy.get('[data-cy="add-documento-pessoal"]').click(); // Clica no botão "Adicionar" para adicionar documentos pessoais
-            cy.get('[data-cy="documento-pessoal-input"]').type(`Documento Pessoal ${i + 1}`, { delay: 0 });
+            cy.get('[data-cy="documentoPessoalEdital-adicionar"]').click(); // Clica no botão "Adicionar" Documento Pessoal
+            cy.wait(1000); // Adiciona um delay de 1 segundo após adicionar o documento pessoal
+            cy.get(`[data-cy="documentoPessoalEdital.${i}.documentoPessoalId"]`).click(); // Clica no campo de seleção de Documento Pessoal
+
+            // Seleciona o documento baseado no índice
+            cy.get(`[data-cy-index="documentoPessoalEdital.${i}.documentoPessoalId-item-0"]`).click(); // Seleciona o documento
+
+            // Se necessário, podemos adicionar uma pausa entre as interações, mas não é obrigatório
+            cy.wait(500); // Adiciona uma pausa de 500ms entre as ações para evitar problemas com carregamento de elementos
         }
     };
 
+    const preencherDescricaoDoProjeto = () => {
+        cy.get('[data-cy="perguntas"]').click(); // Clica na aba Perguntas
+        cy.get('[data-cy="descricao-do-projeto"]').click(); // Clica na aba Descrição do Projeto
+
+        // Loop para adicionar 5 perguntas de Descrição do Projeto
+        for (let i = 0; i < 5; i++) {
+            // Clica no campo de seleção de Pergunta de Descrição do Projeto
+            cy.get('[data-cy="perguntaDescId"]').click();
+
+            // Seleciona a pergunta correspondente ao índice
+            cy.get(`[data-cy-index="perguntaDescId-item-${i}"]`).click();
+            cy.wait(1000); // Espera 2 segundos antes de clicar
+
+
+            // Clica no botão "Adicionar" para adicionar uma nova Pergunta de Descrição do Projeto
+            cy.get('[data-cy="pergunta-adicionar"]').click();
+
+            // Espera 1 segundo entre cada interação (ajuste conforme necessário)
+            cy.wait(500);
+        }
+    };
+
+
+
     // Função para preencher as Perguntas de Descrição do Projeto e Indicadores de Produção
-    const preencherPerguntas = () => {
+    const preencherIndicadoresDeProducao = () => {
         cy.get('[data-cy="perguntas"]').click(); // Clica na aba Perguntas
         cy.get('[data-cy="indicadores-de-producao"]').click(); // Clica na aba Indicadores de Produção
         for (let i = 0; i < 3; i++) {
