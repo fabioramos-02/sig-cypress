@@ -18,7 +18,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         // 1. Informação do Edital
         // - Insere a Identificação do Edital
         cy.get('[data-cy="nome"]').type(
-            'Grupo-01 E.S. 006/2025 fabio-ramos', //Edite essa linha para preencher o nome do Edital
+            'Grupo-01 E.S. 006/2025 fabio-ramos teste Medio', //Edite essa linha para preencher o nome do Edital
             { delay: 0 },
         ); //Preenche o campo "Nome" do Edital
 
@@ -73,16 +73,21 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         // - Indicadores de Produção
         cy.get('[data-cy="perguntas"]').click(); //Clica na aba Perguntas para seguir para a página de Perguntas
         cy.get('[data-cy="indicadores-de-producao"]').click(); //Clica na aba Indicadores de Produção para seguir para a página de Indicadores de Produção
-        cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" para criar um novo Indicador de Produção
+        cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" Indicador de Produção
+
         //selecionar 3 indicadores de produção
         cy.get('[data-cy="indicadorProducaoUnsaved.id"]').click(); //Clica no campo de seleção de Indicador de Produção
         cy.get('[data-cy-index="indicadorProducaoUnsaved.id-item-0"]').click(); //Seleciona o primeiro Indicador de Produção da lista de Indicadores de Produção
         cy.get('[data-cy="indicadorProducao-confirmar"]').click(); //Clica no botão "Salvar" para salvar as informações do Indicador de Produção
+
+        cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" Indicador de Produção
         cy.get('[data-cy="indicadorProducaoUnsaved.id"]').click(); //Clica no campo de seleção de Indicador de Produção
-        cy.get('[data-cy-index="indicadorProducaoUnsaved.id-item-1"]').click(); //Seleciona o segundo Indicador de Produção da lista de Indicadores de Produção
+        cy.get('[data-cy-index="indicadorProducaoUnsaved.id-item-0"]').click(); //Seleciona o segundo Indicador de Produção da lista de Indicadores de Produção
         cy.get('[data-cy="indicadorProducao-confirmar"]').click(); //Clica no botão "Salvar" para salvar as informações do Indicador de Produção
+        
+        cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" Indicador de Produção
         cy.get('[data-cy="indicadorProducaoUnsaved.id"]').click(); //Clica no campo de seleção de Indicador de Produção
-        cy.get('[data-cy-index="indicadorProducaoUnsaved.id-item-2"]').click(); //Seleciona o terceiro Indicador de Produção da lista de Indicadores de Produção
+        cy.get('[data-cy-index="indicadorProducaoUnsaved.id-item-0"]').click(); //Seleciona o terceiro Indicador de Produção da lista de Indicadores de Produção
         cy.get('[data-cy="indicadorProducao-confirmar"]').click(); //Clica no botão "Salvar" para salvar as informações do Indicador de Produção
 
         // Finalização
