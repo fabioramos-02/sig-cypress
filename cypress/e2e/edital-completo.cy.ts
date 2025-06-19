@@ -10,33 +10,33 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         // Início do Teste de Edição Completo (E.C.)
         //Informações do Edital
         preencherInformacoesDoEdital();
-        // preencherRestricoes();
-        // preencherTermoDeAceite();
-        // preencherTextoDoEdital();
-        // preencherAbrangencia();
-        // preencherInformacoesComplementares();
+        preencherRestricoes();
+        preencherTermoDeAceite();
+        preencherTextoDoEdital();
+        preencherAbrangencia();
+        preencherInformacoesComplementares();
 
-        // Cronograma
-        // preencherCronograma();
+        // //Cronograma
+        preencherCronograma();
 
-        // Orçamento
-        // preencherOrcamento();
-        // preencherRubricas();
-        // preencherFaixasDeFinanciamento();
+        // //Orçamento
+        preencherOrcamento();
+        preencherRubricas();
+        preencherFaixasDeFinanciamento();
 
-        //Documentos
-        // preencherDocumentos();
-        // preencherDocumentosPessoais();
+        // //Documentos
+        preencherDocumentos();
+        preencherDocumentosPessoais();
 
         // Perguntas
-        // preencherDescricaoDoProjeto();
-        // preencherIndicadoresDeProducao();
+        preencherDescricaoDoProjeto();
+        preencherIndicadoresDeProducao();
 
         // Bolsas do Edital
         preencherBolsas();
 
         // Finalizar o processo de criação do edital
-        // salvarEFinalizarEdital();
+        salvarEFinalizarEdital();
 
         // Resultado esperado: O Edital deve ser salvo com sucesso e o usuário deve ser redirecionado para a página de Editais.
     });
