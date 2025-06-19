@@ -14,14 +14,19 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
     cy.get('[data-cy="nav-group-edital"]').click(); //Clica na aba Editais
     cy.get('[data-cy="nav-item-publicar-edital"]').click(); //Clica na opção Editais para acessar da página de Editais
     cy.get('[data-cy="add-publicar-edital"]').click(); //Clica no botão "Adicionar" para criação de um novo Edital
+    cy.get('.css-jir0u').click(); //Fechar menu lateral
     cy.get('[data-cy="nome"]').type(
-      'Grupo-01 E.S. 006/2025 fabio-ramos', //Edite essa linha para preencher o nome do Edital
+      'Grupo-01 E.S. 006/2025 fabio-ramos Edital Simples', //Edite essa linha para preencher o nome do Edital
       { delay: 0 },
     ); //Preenche o campo "Nome" do Edital
+
+    //Restrições
     cy.get('[data-cy="restricoes"]').click(); //Clica na aba Restrições para seguir para a página de Restrições
     cy.get('[data-cy="definirDuracaoProjetoEmMeses"]').check(); //Marca a opção "Definir Duração do Projeto em Meses"
     cy.get('[data-cy="duracaoProjetoEmMeses"]').type('6'); //Preenche o campo "Duração do Projeto em Meses com o valor 6"
     cy.get('[data-cy="pesquisadorSubmeterVariasPropostas"]').check(); //Marca a opção "Pesquisador pode submeter várias propostas"
+
+    //Cronograma
     cy.get('[data-cy="cronograma"]').click(); //Clica na aba Cronograma para seguir para a página de Cronograma
     cy.get('[data-cy="periodo-de-submissao"]').click(); //Clica na aba Período de Submissão para seguir para a página de Período de Submissão
     cy.get('[data-cy="add-button"]').click(); //Clica no botão "Adicionar" para criar um novo Período de Submissão
@@ -30,8 +35,16 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
       getCurrentDateTime({ addYears: 1 }),
     ); //Preenche o campo "Término" do Período de Submissão com a data do dia de hoje + 1 ano
     cy.get('[data-cy="chamada-confirmar"]').click(); //Clica no botão "Salvar" para salvar as informações do Período de Submissão
+
+    //Orçamento
     cy.get('[data-cy="orcamento"]').click(); //Clica na aba Orçamento para exibir as opções de Orçamento
     cy.get('[data-cy="programa"]').click(); //Clica em Programa para seguir para a página de Programa
+    cy.get('[data-cy="add-natureza-da-despesa"]').click(); //Clica no botão "Adicionar" para criar uma nova Natureza da Despesa
+    cy.get('[data-cy="naturezaDespesaEditalUnsaved.naturezaDespesaId"]').click(); //Clica no campo de seleção de Natureza da Despesa
+    cy.get('[data-cy-index="naturezaDespesaEditalUnsaved.naturezaDespesaId-item-0"]').click(); //Seleciona o primeiro item da lista de Naturezas da Despesa
+    cy.get('[data-cy="naturezaDespesaEditalUnsaved.valor"]').type('100000'); //Preenche o campo "Valor" da Natureza da Despesa com o valor 1000
+    cy.get('[data-cy="naturezaDespesaEditalUnsaved.edicaoProgramaId"]').click(); //Clica no campo de salvar
+
     cy.get('[data-cy="programaId"]').click(); //Clica no campo de seleção de Programa
     cy.get('[data-cy-index="programaId-item-0"]').click(); //Seleciona o primeiro Programa da lista de Programas
     cy.get('[data-cy="menu-salvar"]').click(); //Clica no botão "Salvar" para salvar as informações do Edital
