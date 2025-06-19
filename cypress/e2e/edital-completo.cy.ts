@@ -29,11 +29,11 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         // preencherDocumentosPessoais();
 
         // Perguntas
-        preencherDescricaoDoProjeto();
+        // preencherDescricaoDoProjeto();
         // preencherIndicadoresDeProducao();
 
         // Bolsas do Edital
-        // preencherBolsas();
+        preencherBolsas();
 
         // Finalizar o processo de criação do edital
         // salvarEFinalizarEdital();
@@ -238,12 +238,28 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         }
     };
 
-    // Função para preencher as Bolsas do Edital
     const preencherBolsas = () => {
+        cy.get('[data-cy="bolsas-do-edital"]').click(); // Clica na aba Bolsas do Edital
         cy.get('[data-cy="bolsas"]').click(); // Clica na aba Bolsas
+
+        // Loop para adicionar 5 bolsas
         for (let i = 0; i < 5; i++) {
-            cy.get('[data-cy="add-bolsa"]').click(); // Clica no botão "Adicionar" Bolsa
-            cy.get('[data-cy="bolsa-input"]').type(`Bolsa ${i + 1}`, { delay: 0 });
+            cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Bolsa
+
+            // Seleciona a Modalidade de Bolsa correspondente
+            cy.get('[data-cy="bolsaEditalUnsaved.modalidadeBolsaId"]').click();
+            cy.get(`[data-cy-index="bolsaEditalUnsaved.modalidadeBolsaId-item-${i}"]`).click(); // Seleciona a modalidade de bolsa correspondente ao índice
+
+            // Seleciona o Nível de Bolsa correspondente (intervalo de 0 a 2)
+            cy.get('[data-cy="bolsaEditalUnsaved.nivelBolsaId"]').click();
+            const nivelIndice = i % 3; // Garantir que o índice para o Nível de Bolsa fique entre 0, 1, 2
+            cy.get(`[data-cy-index="bolsaEditalUnsaved.nivelBolsaId-item-${nivelIndice}"]`).click(); // Seleciona o nível de bolsa correspondente
+
+            // Clica em confirmar para salvar a Bolsa
+            cy.get('[data-cy="bolsaEdital-confirmar"]').click();
+
+            // Espera 1 segundo entre as interações (ajuste conforme necessário)
+            cy.wait(1000); // Adiciona uma pausa de 1 segundo entre as interações
         }
     };
 
