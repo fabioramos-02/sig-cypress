@@ -48,8 +48,8 @@ describe('Adicionar o valor mínimo no campo do Termo de Aceite', () => {
         cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba 'Termo de Aceite'
         cy.get('.ck-editor__editable', { timeout: 2000 }).should('be.visible'); // Espera o editor carregar
 
-        // Gerar Lorem Ipsum com valor mínimo (por exemplo, 10 caracteres)
-        const textoTermoDeAceite = gerarLoremIpsumMinimo(10);  // Gera o texto com 10 caracteres (valor mínimo)
+        // Gerar Lorem Ipsum com valor mínimo 1 caracteres)
+        const textoTermoDeAceite = gerarLoremIpsumMinimo(1);  // Gera o texto com 1 caractere (valor mínimo)
 
         cy.get('[data-cy="termoDeAceite"]').then(el => {
             // @ts-ignore

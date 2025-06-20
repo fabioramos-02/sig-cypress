@@ -20,9 +20,9 @@ describe('Adicionar o valor superior ao máximo limite no campo do Termo de Acei
         preencherInformacoesDoEdital(); // Preenche o título do edital
         preencherTermoDeAceiteComValorAcimaDoLimite(); // Preenche o termo de aceite com texto acima do limite
 
-        // // Valida que o sistema emite um alerta de erro
-        // cy.get('.error-message').should('be.visible') // Verifica se a mensagem de erro está visível
-        //   .and('contain.text', 'O texto do Termo de Aceite excede o limite de caracteres permitidos.');  // Verifica a mensagem de erro
+        // Valida que o sistema emite um alerta de erro
+        cy.get('.error-message').should('be.visible') // Verifica se a mensagem de erro está visível
+          .and('contain.text', 'O texto do Termo de Aceite excede o limite de caracteres permitidos.');  // Verifica a mensagem de erro
 
 
     });
