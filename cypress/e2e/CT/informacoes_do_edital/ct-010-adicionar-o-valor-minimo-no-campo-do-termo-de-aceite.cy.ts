@@ -14,17 +14,4 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
         // Resultado esperado: O sistema deve permitir que o usuário consiga salvar e prosseguir para a substep Texto do Edital.
     });
 
-    // Função para gerar o texto Lorem Ipsum com N caracteres
-    const gerarLoremIpsum = (numCaracteres: number) => {
-        const textoBase = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit..."; // Texto base
-        let resultado = "";
-        let contExato = numCaracteres -1; // Variável para controlar o número de caracteres
-        // Repete o texto base até atingir ou ultrapassar o número de caracteres desejado
-        while (resultado.length < numCaracteres) {
-            resultado += textoBase;
-        }
-
-        // Retorna exatamente os N caracteres, garantindo que o texto não ultrapasse o limite
-        return resultado.substring(0, contExato); 
-    };
 });
