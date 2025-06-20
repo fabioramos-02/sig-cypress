@@ -61,15 +61,15 @@ Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
   cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba 'Termo de Aceite'
   cy.get('.ck-editor__editable', { timeout: 2000 }).should('be.visible'); // Espera o editor carregar
 
-  // Preenche o campo "Termo de Aceite" com o texto fornecido
+  // Preenche o campo "Termo de Aceite" com o texto fornecido, mas sem o último caractere
+  const textoSemUltimoCaracter = texto.slice(0, -1);
   cy.get('[data-cy="termoDeAceite"]').then(el => {
     // @ts-ignore
     const editor = el[0].ckeditorInstance; // Obtém a instância do editor CKEditor
-    editor.setData(texto); // Define o conteúdo do Termo de Aceite com o texto fornecido
+    editor.setData(textoSemUltimoCaracter); // Define o conteúdo do Termo de Aceite com o texto fornecido (sem o último caractere)
   });
 
+  // Agora digita o último caractere com realType para simular a digitação real
   cy.get('[data-cy="termoDeAceite"]').click(); // Clica na aba 'Termo de Aceite'
-  cy.get('.ck-editor__main > .ck').realType(".", { delay: 0 }); // Digita o texto no campo do Termo de Aceite
-
-
+  cy.get('.ck-editor__main > .ck').realType(texto.charAt(texto.length - 1), { delay: 0 }); // Digita o último caractere
 });
