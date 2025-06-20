@@ -39,6 +39,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         salvarEFinalizarEdital();
 
         // Resultado esperado: O Edital deve ser salvo com sucesso e o usuário deve ser redirecionado para a página de Editais.
+        //  Resultado esperado: A Proposta tenha sido criada com sucesso e apareça na Home do sistema: Seção Propostas.
     });
 
     // Função para preencher as informações do Edital (Título, Código, etc.)
