@@ -1,4 +1,4 @@
-import { gerarLoremIpsum } from "../../../support/utils"; // Utilizando a função utilitária para gerar Lorem Ipsum
+import { gerarLoremIpsum } from "../../../../support/utils"; // Utilizando a função utilitária para gerar Lorem Ipsum
 
 describe('Adicionar texto com quantidade de caracteres superior ao valor máximo no campo do Texto do Edital', () => {
     beforeEach(() => {

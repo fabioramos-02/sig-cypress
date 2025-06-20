@@ -1,6 +1,6 @@
-import { gerarLoremIpsum } from "../../../support/utils";
+import { gerarLoremIpsum } from "../../../../support/utils";
 
-describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
+describe('Adicionar o valor mínimo no campo do Termo de Aceite.', () => {
     beforeEach(() => {
         // Realiza login no sistema antes de cada teste
         cy.login(0); // Realiza login como Gestor (índice 0)
@@ -9,9 +9,9 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
     });
 
     it('Deve permitir que o usuário insira o valor máximo permitido no campo "Termo de Aceite"', () => {
-        const textoTermoDeAceite = gerarLoremIpsum(5000); // Gera o texto com 5000 caracteres
+        const textoTermoDeAceite = gerarLoremIpsum(0); // Gera o texto com 5000 caracteres
         cy.preencherTermoDeAceite(textoTermoDeAceite); // Preenche o Termo de Aceite com o texto máximo
-    
+       
         cy.salvarAndAvancar(); // Clica no botão "Salvar" e tenta avançar para a próxima seção
         // Resultado esperado: O sistema deve permitir que o usuário consiga salvar e prosseguir para a substep Texto do Edital.
     });
