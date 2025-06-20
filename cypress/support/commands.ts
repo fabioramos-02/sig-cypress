@@ -94,3 +94,23 @@ Cypress.Commands.add('preencherTextoDoEdital', (texto: string) => {
   cy.get('[data-cy="texto"]').click(); // Clica na aba 'Texto do Edital'
   cy.get('.ck-editor__main > .ck').realType(texto.charAt(texto.length - 1), { delay: 0 }); // Digita o último caractere
 });
+
+// Comando para selecionar estados na área de abrangência
+// Este comando permite selecionar estados específicos ou todos os estados na área de abrangência do edital.
+Cypress.Commands.add('selecionarEstadosNaAbrangencia', (estados: string[] | string) => {
+    cy.get('[data-cy="abrangencia"]').click(); // Clica na aba Abrangência
+
+    if (Array.isArray(estados)) {
+        // Se passar um array de estados, seleciona cada estado individualmente
+        estados.forEach((estado) => {
+            cy.get(`[data-cy="estado-${estado}"]`).click(); // Clica no checkbox de cada estado
+        });
+    } else if (estados === 'todos') {
+        // Se passar a string 'todos', seleciona todos os estados
+        cy.get('[data-cy="estado-todos"]').click(); // Clica na opção "Todos"
+    }
+
+    // Após selecionar os estados, clica no botão de salvar
+    cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
+    cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
+});

@@ -8,6 +8,7 @@ declare namespace Cypress {
         preencherDuracaoDoProjeto: (valor: number) => void;
         preencherTermoDeAceite: (texto: string) => void;
         preencherTextoDoEdital: (texto: string) => void;
+        selecionarEstadosNaAbrangencia: (estados: string[] | string) => void;
         
     }
 }
