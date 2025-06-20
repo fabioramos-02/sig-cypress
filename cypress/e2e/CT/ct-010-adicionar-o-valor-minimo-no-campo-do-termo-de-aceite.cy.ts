@@ -39,6 +39,8 @@ describe('Adicionar o valor mínimo no campo do Termo de Aceite', () => {
         cy.get('[data-cy="nav-item-publicar-edital"]').click(); // Clica na opção "Publicar Edital"
         cy.get('[data-cy="add-publicar-edital"]').click(); // Clica para adicionar um novo edital
         cy.get('.css-jir0u').click(); // Fecha o menu lateral
+        // Preenche o título do Edital
+        cy.get('[data-cy="nome"]').type('Grupo-01 E.M. 005/2025 fabio-ramos Edital Médio', { delay: 0 });
     };
 
     // Função para preencher o campo "Termo de Aceite" com o valor mínimo
