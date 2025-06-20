@@ -1,4 +1,4 @@
-import { getCurrentDateTime } from '../helpers/date.helper';
+import { getCurrentDateTime } from '../../../helpers/date.helper';
 
 describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', () => {
   beforeEach(() => {

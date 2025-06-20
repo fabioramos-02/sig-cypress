@@ -11,7 +11,6 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
         cy.preencherTermoDeAceite(textoTermoDeAceite); // Preenche o Termo de Aceite com o texto máximo
 
         cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar o Termo de Aceite
-        cy.get
         // Valida que o sistema permite avançar para a próxima seção
         cy.get('.css-y8ykzc > .MuiTypography-root')
             .eq(0)
