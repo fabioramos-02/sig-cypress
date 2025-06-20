@@ -10,7 +10,7 @@ describe('Adicionar o valor abaixo do inferior limite em campo de duração do p
 
         // Valida que o sistema emite um alerta de erro
         cy.get('.error-message').should('be.visible') // Verifica se a mensagem de erro está visível
-            .and('contain.text', 'A duração do projeto deve ser maior que 0 meses'); // Verifica se a mensagem contém o texto esperado
+            .and('contain.text', 'O valor deve ser maior ou igual a 1'); // Verifica se a mensagem contém o texto esperado
 
         // Verifica que o campo de duração do projeto ainda está vazio ou com valor inválido
         cy.get('[data-cy="duracaoProjetoEmMeses"]').should('have.value', '0');  // Garante que o campo não tenha sido preenchido com valor inválido
