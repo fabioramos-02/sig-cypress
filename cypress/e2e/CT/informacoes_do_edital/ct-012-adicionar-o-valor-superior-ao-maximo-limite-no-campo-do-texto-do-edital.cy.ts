@@ -19,7 +19,5 @@ describe('Adicionar texto com quantidade de caracteres igual ao valor máximo no
         cy.get('.css-y8ykzc > .MuiTypography-root')
             .eq(0)
             .should('contain.text', 'Abrangência'); // Verifica se a aba 'Abrangência' está visível
-        
-            // Resultado esperado: O sistema deve permitir que o usuário consiga salvar e prosseguir para a substep Abrangência.
     });
 });
