@@ -12,7 +12,7 @@ Cypress.Commands.add('typelogin', () => {
     cy.get('#senha').type(senha);
     cy.get('.css-1wz47u4 > .MuiButton-root').click(); // Botão Acessar da página de login
   });
-  
+
 });
 
 Cypress.Commands.add('login', (tipoUsuario = 0) => {
@@ -26,4 +26,19 @@ Cypress.Commands.add('login', (tipoUsuario = 0) => {
     cy.get('#senha').type(senha);
     cy.get('.css-1wz47u4 > .MuiButton-root').click(); // Botão Acessar da página de login
   });
+});
+
+Cypress.Commands.add('preencherIdentificacaoDoEdital', (titulo: string) => {
+  cy.get('[data-cy="nav-group-edital"]').click(); // Clica na navegação de Editais
+  cy.get('[data-cy="nav-item-publicar-edital"]').click(); // Clica na opção "Publicar Edital"
+  cy.get('[data-cy="add-publicar-edital"]').click(); // Clica para adicionar um novo edital
+  cy.get('.css-jir0u').click(); // Fecha o menu lateral
+
+  // Preenchendo o título do Edital conforme o formato especificado
+  cy.get('[data-cy="nome"]').type(titulo, { delay: 0 });
+});
+
+Cypress.Commands.add('salvarAndAvancar', () => {
+  cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
+  cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
 });
