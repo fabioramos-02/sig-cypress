@@ -11,7 +11,7 @@ describe('Preencher título do edital', () => {
     // Finalizar o processo de criação do edital
     cy.salvarAndAvancar();
 
-    // Resultado esperado: O sistema deve permitir que o usuário consiga salvar o estado atual do preenchimento do edital.
+    // Resultado esperado: O sistema deve permitir que o usuário consiga salvar o estado atual do preenchimento do edital e prosseguir para Restrições.
   });
 
 });

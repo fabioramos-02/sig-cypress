@@ -51,7 +51,6 @@ describe('Adicionar o valor superior ao máximo limite no campo do Termo de Acei
             const editor = el[0].ckeditorInstance; // Obtém a instância do editor CKEditor
             editor.setData(textoTermoDeAceite); // Define o conteúdo do Termo de Aceite com o texto gerado
         });
-
         cy.wait(1000); // Aguarda 1 segundo para garantir que o editor seja atualizado
 
         // Clica no menu de salvar ou no botão "Próximo"

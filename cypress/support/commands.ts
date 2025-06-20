@@ -51,3 +51,20 @@ Cypress.Commands.add('preencherDuracaoDoProjeto', (valor: number) => {
   cy.get('[data-cy="duracaoProjetoEmMeses"]').clear().type(valor.toString()); // Preenche com o valor passado como parâmetro
   cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar a duração do projeto
 });
+
+Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
+  cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba 'Termo de Aceite'
+  cy.get('.ck-editor__editable', { timeout: 2000 }).should('be.visible'); // Espera o editor carregar
+
+  // Preenche o campo "Termo de Aceite" com o texto fornecido
+  cy.get('[data-cy="termoDeAceite"]').then(el => {
+    // @ts-ignore
+    const editor = el[0].ckeditorInstance; // Obtém a instância do editor CKEditor
+    editor.setData(texto); // Define o conteúdo do Termo de Aceite com o texto fornecido
+  });
+  cy.get('[data-cy="termoDeAceite"]').click(); // Clica no campo do Termo de Aceite para garantir que o editor esteja ativo
+
+  cy.wait(1000); // Aguarda 1 segundo para garantir que o editor seja atualizado
+  cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
+
+});

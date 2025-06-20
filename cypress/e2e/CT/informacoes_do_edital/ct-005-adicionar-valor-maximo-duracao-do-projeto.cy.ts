@@ -14,7 +14,7 @@ describe('Adicionar o valor máximo em campo de duração do projeto', () => {
     cy.get('.css-y8ykzc > .MuiTypography-root')
       .eq(0)
       .should('contain.text', 'Termo de Aceite');  // Verifica se a aba 'Termo de Aceite' está visível
+      // Resultado esperado: O sistema deve permitir que o usuário consiga salvar e/ou prosseguir para a seção do termo de aceite.
   });
 
 });
-// Resultado esperado: O sistema deve permitir que o usuário insira o valor máximo permitido para a duração do projeto

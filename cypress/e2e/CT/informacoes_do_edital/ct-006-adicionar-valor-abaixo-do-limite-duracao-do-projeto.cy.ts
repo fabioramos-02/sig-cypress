@@ -15,5 +15,6 @@ describe('Adicionar o valor abaixo do inferior limite em campo de duração do p
 
     // Verifica que o campo de duração do projeto ainda está com valor inválido
     cy.get('[data-cy="duracaoProjetoEmMeses"]').should('have.value', '0'); // Garante que o campo não tenha sido preenchido com valor inválido
-  });
+    // Resultado esperado: O sistema deve alertar o usuário que não é possível prosseguir ou salvar, e que ele deve inserir um valor maior que 0.
+});
 });

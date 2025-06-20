@@ -16,5 +16,7 @@ describe('Adicionar o valor acima do superior limite em campo de duração do pr
 
     // Verifica que o campo de duração do projeto ainda está com o valor inválido
     cy.get('[data-cy="duracaoProjetoEmMeses"]').should('have.value', '101'); // Garante que o valor não foi aceito
+
+    // Resultado esperado: O sistema deve alertar o usuário que não é possível prosseguir ou salvar, e que ele deve inserir um valor menor ou igual a 100.
   });
 });
