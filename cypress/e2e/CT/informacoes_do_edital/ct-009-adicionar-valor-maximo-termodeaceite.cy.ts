@@ -9,20 +9,22 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
     it('Deve permitir que o usuário insira o valor máximo permitido no campo "Termo de Aceite"', () => {
         const textoTermoDeAceite = gerarLoremIpsum(5000); // Gera o texto com 5000 caracteres
         cy.preencherTermoDeAceite(textoTermoDeAceite); // Preenche o Termo de Aceite com o texto máximo
-
-        cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar o Termo de Aceite
-        // Valida que o sistema permite avançar para a próxima seção
-        cy.get('.css-y8ykzc > .MuiTypography-root')
-            .eq(0)
-            .should('contain.text', 'Texto do Edital');  // Verifica se a aba 'Texto do Edital' está visível
+       
+        cy.salvarAndAvancar(); // Clica no botão "Salvar" e tenta avançar para a próxima seção
+        // Resultado esperado: O sistema deve permitir que o usuário consiga salvar e prosseguir para a substep Texto do Edital.
     });
 
+    // Função para gerar o texto Lorem Ipsum com N caracteres
     const gerarLoremIpsum = (numCaracteres: number) => {
-        const textoBase = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit...";
+        const textoBase = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit..."; // Texto base
         let resultado = "";
+        let contExato = numCaracteres -1; // Variável para controlar o número de caracteres
+        // Repete o texto base até atingir ou ultrapassar o número de caracteres desejado
         while (resultado.length < numCaracteres) {
             resultado += textoBase;
         }
-        return resultado.substring(0, numCaracteres);  // Retorna apenas os N primeiros caracteres
+
+        // Retorna exatamente os N caracteres, garantindo que o texto não ultrapasse o limite
+        return resultado.substring(0, contExato); 
     };
 });

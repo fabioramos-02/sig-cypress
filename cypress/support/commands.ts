@@ -40,6 +40,8 @@ Cypress.Commands.add('preencherIdentificacaoDoEdital', (titulo: string) => {
 
 // Comando para clicar no botão Salvar e avançar
 Cypress.Commands.add('salvarAndAvancar', () => {
+  // Aguarda 1 segundo para garantir que o editor foi atualizado
+  cy.wait(1000);
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
   cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
 });
@@ -52,6 +54,9 @@ Cypress.Commands.add('preencherDuracaoDoProjeto', (valor: number) => {
   cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar a duração do projeto
 });
 
+
+// Comando para preencher o campo "Termo de Aceite" com um texto específico e incluir o ponto final
+// Este comando preenche o campo "Termo de Aceite" com o texto fornecido e garante que o editor CKEditor seja atualizado corretamente.
 Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
   cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba 'Termo de Aceite'
   cy.get('.ck-editor__editable', { timeout: 2000 }).should('be.visible'); // Espera o editor carregar
@@ -62,9 +67,9 @@ Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
     const editor = el[0].ckeditorInstance; // Obtém a instância do editor CKEditor
     editor.setData(texto); // Define o conteúdo do Termo de Aceite com o texto fornecido
   });
-  cy.get('[data-cy="termoDeAceite"]').click(); // Clica no campo do Termo de Aceite para garantir que o editor esteja ativo
 
-  cy.wait(1000); // Aguarda 1 segundo para garantir que o editor seja atualizado
-  cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
+  cy.get('[data-cy="termoDeAceite"]').click(); // Clica na aba 'Termo de Aceite'
+  cy.get('.ck-editor__main > .ck').realType(".", { delay: 0 }); // Digita o texto no campo do Termo de Aceite
+
 
 });
