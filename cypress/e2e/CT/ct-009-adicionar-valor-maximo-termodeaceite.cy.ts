@@ -23,6 +23,8 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
     cy.get('.css-y8ykzc > .MuiTypography-root')
       .eq(0)
       .should('contain.text', 'Texto do Edital');  // Verifica se a aba 'Texto do Edital' está visível
+
+    //Resultado esperado: O sistema deve permitir que o usuário insira o valor máximo permitido no campo "Termo de Aceite"
   });
 
   // Função para preencher o campo do Termo de Aceite com o valor máximo
@@ -32,6 +34,7 @@ describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
 
     // Preenche o Termo de Aceite com o valor máximo de texto permitido
     preencherTermoDeAceite();
+
   };
 
   // Função para acessar a seção de 'Publicar Edital'
