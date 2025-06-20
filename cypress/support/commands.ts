@@ -38,7 +38,16 @@ Cypress.Commands.add('preencherIdentificacaoDoEdital', (titulo: string) => {
   cy.get('[data-cy="nome"]').type(titulo, { delay: 0 });
 });
 
+// Comando para clicar no botão Salvar e avançar
 Cypress.Commands.add('salvarAndAvancar', () => {
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
   cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
+});
+
+// Comando para preencher a duração do projeto com um valor específico
+Cypress.Commands.add('preencherDuracaoDoProjeto', (valor: number) => {
+  cy.get('[data-cy="restricoes"]').click(); // Clica na aba 'Restrições'
+  cy.get('[data-cy="definirDuracaoProjetoEmMeses"]').check(); // Marca a opção "Definir a duração do projeto em meses"
+  cy.get('[data-cy="duracaoProjetoEmMeses"]').clear().type(valor.toString()); // Preenche com o valor passado como parâmetro
+  cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar a duração do projeto
 });

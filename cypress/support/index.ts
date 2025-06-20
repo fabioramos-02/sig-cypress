@@ -5,6 +5,7 @@ declare namespace Cypress {
         login: (tipoUsuario?: number) => void;
         preencherIdentificacaoDoEdital: (titulo: string) => void;
         salvarAndAvancar: () => void;
+        preencherDuracaoDoProjeto: (valor: number) => void;
 
     }
 }
