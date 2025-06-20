@@ -33,7 +33,7 @@ const acessarPaginaDeEditais = () => {
 
 // Função para selecionar o Edital desejado
 const selecionarEdital = () => {
-    cy.get(':nth-child(199) > .MuiListItem-root > .e1w0rc4q5 > .e1w0rc4q2 > .MuiButtonBase-root').click(); // Clica no botão "Editar Edital" para o edital específico
+    cy.get(':nth-child(193) > .MuiListItem-root > .e1w0rc4q5 > .e1w0rc4q2 > .MuiButtonBase-root').click(); // Clica no botão "Editar Edital" para o edital específico
     cy.wait(300); // Aguarda 300ms para garantir que a página foi carregada completamente
 };
 
@@ -44,10 +44,16 @@ const criarProposta = () => {
 
 // Função para preencher os dados obrigatórios da proposta
 const preencherDadosDaProposta = () => {
+    // Prenche as informações Iniciais da Proposta
     cy.get('[data-cy="tituloDoProjeto"]').type('Submissão de Proposta Cypress', { delay: 0 }); // Preenche o campo "Título do Projeto"
-    // Outros campos obrigatórios podem ser preenchidos aqui, por exemplo:
-    // cy.get('[data-cy="descricaoDoProjeto"]').type('Descrição detalhada da proposta', { delay: 0 });
-    // cy.get('[data-cy="dataInicio"]').type('01/01/2025', { delay: 0 });
+
+    cy.get('[data-cy="instituicaoExecutoraId"]').click(); // Clica no campo "Instituição Executora"
+    cy.get('[data-cy="instituicaoExecutoraId-item-1"]', { timeout: 10000 }).should('be.visible').click();
+
+
+    cy.get('[data-cy="unidadeExecutoraId"]').click(); // Clica no campo "Unidade Executora"
+    cy.wait(500); // Aguarda meio segundo para garantir que a lista de unidades foi
+    cy.get('[data-cy="unidadeExecutoraId-item-1"]').click(); // Seleciona a primeira unidade da lista
 };
 
 // Função para preencher os dados pessoais do pesquisador responsável pela proposta
