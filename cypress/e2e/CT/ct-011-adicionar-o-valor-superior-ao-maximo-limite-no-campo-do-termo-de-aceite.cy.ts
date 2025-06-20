@@ -63,6 +63,7 @@ describe('Adicionar o valor superior ao máximo limite no campo do Termo de Acei
             editor.setData(textoTermoDeAceite); // Define o conteúdo do Termo de Aceite com o texto gerado
         });
 
-        cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar o Termo de Aceite
+        // cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para tentar salvar o Termo de Aceite
+        cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
     };
 });
