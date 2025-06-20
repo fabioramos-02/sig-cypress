@@ -1,5 +1,7 @@
 import 'cypress-iframe';
 import 'cypress-real-events';
+import 'cypress-file-upload'; // Importa o plugin de upload de arquivos
+
 import './utils'
 
 // cypress/support/commands.ts
@@ -98,19 +100,27 @@ Cypress.Commands.add('preencherTextoDoEdital', (texto: string) => {
 // Comando para selecionar estados na área de abrangência
 // Este comando permite selecionar estados específicos ou todos os estados na área de abrangência do edital.
 Cypress.Commands.add('selecionarEstadosNaAbrangencia', (estados: string[] | string) => {
-    cy.get('[data-cy="abrangencia"]').click(); // Clica na aba Abrangência
+  cy.get('[data-cy="abrangencia"]').click(); // Clica na aba Abrangência
+  cy.get('[data-cy="estado-sao-paulo"]').click(); // Clica no checkbox para desmarcar o estado de São Paulo que já está selecionado
 
-    if (Array.isArray(estados)) {
-        // Se passar um array de estados, seleciona cada estado individualmente
-        estados.forEach((estado) => {
-            cy.get(`[data-cy="estado-${estado}"]`).click(); // Clica no checkbox de cada estado
-        });
-    } else if (estados === 'todos') {
-        // Se passar a string 'todos', seleciona todos os estados
-        cy.get('[data-cy="estado-todos"]').click(); // Clica na opção "Todos"
-    }
+  if (Array.isArray(estados)) {
+    // Se passar um array de estados, seleciona cada estado individualmente
+    estados.forEach((estado) => {
+      cy.get(`[data-cy="estado-${estado}"]`).click(); // Clica no checkbox de cada estado
+    });
+  } else if (estados === 'todos') {
+    // Se passar a string 'todos', seleciona todos os estados
+    cy.get('[data-cy="estado-todos"]').click(); // Clica na opção "Todos"
+  }
 
-    // Após selecionar os estados, clica no botão de salvar
-    cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
-    cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
+  // Após selecionar os estados, clica no botão de salvar
+  cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
+  cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
+});
+
+// Comando para enviar um arquivo PDF
+Cypress.Commands.add('enviarArquivoPdf', (arquivo: string) => {
+  cy.get('[data-cy="anexos"]').click(); // Clica na aba Anexos
+  cy.get('input[type="file"]').attachFile(arquivo); // Anexa o arquivo PDF ao campo de upload
+  cy.wait(1000); // Aguarda 1 segundo para garantir que o upload seja concluído
 });

@@ -1,0 +1,20 @@
+describe('Enviar arquivo pdf de até 3 MB', () => {
+    beforeEach(() => {
+        // Realiza login no sistema antes de cada teste
+        cy.login(0); // Realiza login como Gestor (índice 0)
+        cy.wait(1000); // Aguarda 1 segundo para garantir que o sistema esteja pronto
+        cy.preencherIdentificacaoDoEdital("Grupo-01 E.M. 005/2025 fabio-ramos Edital Médio"); // Preenche as informações de identificação do edital
+    });
+
+    it('Deve permitir que o usuário envie um arquivo PDF de até 3 MB', () => {
+        const arquivoPdf = 'teste.pdf'; // Caminho absoluto do arquivo PDF até 3MB
+
+        // Função para enviar o arquivo PDF
+        cy.enviarArquivoPdf(arquivoPdf); // Envia o arquivo PDF no campo de anexo
+
+        // // Valida que o sistema permite avançar para a próxima seção após o upload do arquivo
+        // cy.get('.css-y8ykzc > .MuiTypography-root')
+        //     .eq(0)
+        //     .should('contain.text', 'Texto do Edital');  // Verifica se a aba 'Texto do Edital' está visível
+    });
+});
