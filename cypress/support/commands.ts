@@ -12,4 +12,18 @@ Cypress.Commands.add('typelogin', () => {
     cy.get('#senha').type(senha);
     cy.get('.css-1wz47u4 > .MuiButton-root').click(); // Botão Acessar da página de login
   });
+  
+});
+
+Cypress.Commands.add('login', (tipoUsuario = 0) => {
+  // Carregar o arquivo JSON de credenciais
+  cy.fixture('credenciais_sistema.json').then((credenciais) => {
+    const { login, senha } = credenciais.credenciais[tipoUsuario]; // Usando o índice para selecionar as credenciais
+
+    // Acessar o sistema com a URL e as credenciais
+    cy.visit(credenciais.url_sistema);
+    cy.get('#login').type(login);
+    cy.get('#senha').type(senha);
+    cy.get('.css-1wz47u4 > .MuiButton-root').click(); // Botão Acessar da página de login
+  });
 });
