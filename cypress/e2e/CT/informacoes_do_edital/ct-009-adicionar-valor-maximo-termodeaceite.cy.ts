@@ -1,3 +1,5 @@
+import { gerarLoremIpsum } from "../../../support/utils";
+
 describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
     beforeEach(() => {
         // Realiza login no sistema antes de cada teste

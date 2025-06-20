@@ -1,5 +1,7 @@
 import 'cypress-iframe';
 import 'cypress-real-events';
+import './utils'
+
 // cypress/support/commands.ts
 Cypress.Commands.add('typelogin', () => {
   // Carregar o arquivo JSON de credenciais
@@ -55,7 +57,7 @@ Cypress.Commands.add('preencherDuracaoDoProjeto', (valor: number) => {
 });
 
 
-// Comando para preencher o campo "Termo de Aceite" com um texto específico e incluir o ponto final
+// Comando para preencher o campo "Termo de Aceite" com um texto específico
 // Este comando preenche o campo "Termo de Aceite" com o texto fornecido e garante que o editor CKEditor seja atualizado corretamente.
 Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
   cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba 'Termo de Aceite'
@@ -73,3 +75,24 @@ Cypress.Commands.add('preencherTermoDeAceite', (texto: string) => {
   cy.get('[data-cy="termoDeAceite"]').click(); // Clica na aba 'Termo de Aceite'
   cy.get('.ck-editor__main > .ck').realType(texto.charAt(texto.length - 1), { delay: 0 }); // Digita o último caractere
 });
+
+// Comando para preencher o campo "Texto do Edital" com um texto específico
+// Este comando preenche o campo "Termo de Aceite" com o texto fornecido e garante que o editor CKEditor seja atualizado corretamente.
+Cypress.Commands.add('preencherTextoDoEdital', (texto: string) => {
+  cy.get('[data-cy="texto-do-edital"]').click(); // Clica na aba 'Texto do Edital'
+  cy.get('.ck-editor__editable', { timeout: 2000 }).should('be.visible'); // Espera o editor carregar
+
+  // Preenche o campo "Termo de Aceite" com o texto fornecido, mas sem o último caractere
+  const textoSemUltimoCaracter = texto.slice(0, -1);
+  cy.get('[data-cy="texto-do-edital"]').then(el => {
+    // @ts-ignore
+    const editor = el[0].ckeditorInstance; // Obtém a instância do editor CKEditor
+    editor.setData(textoSemUltimoCaracter); // Define o conteúdo do Termo de Aceite com o texto fornecido (sem o último caractere)
+  });
+
+  // Agora digita o último caractere com realType para simular a digitação real
+  cy.get('[data-cy="texto-do-edital"]').click(); // Clica na aba 'Termo de Aceite'
+  cy.get('.ck-editor__main > .ck').realType(texto.charAt(texto.length - 1), { delay: 0 }); // Digita o último caractere
+});
+
+

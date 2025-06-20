@@ -1,4 +1,6 @@
-describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
+import { gerarLoremIpsum } from "../../../support/utils";
+
+describe('Adicionar o valor mínimo no campo do Termo de Aceite.', () => {
     beforeEach(() => {
         // Realiza login no sistema antes de cada teste
         cy.login(0); // Realiza login como Gestor (índice 0)
