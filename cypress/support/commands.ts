@@ -193,10 +193,10 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
 
   // Marcar os checkboxes de justificativa, conforme passado nos parâmetros
   if (justificativaObrigatoria) {
-    cy.get('[data-cy="editalRubricaUnsaved.temJustificativaObrigatoria"]').click(); // Marca o checkbox "Justificativa Obrigatória"
+    cy.get('[data-cy="editalRubricaUnsaved.temJustificativaObrigatoria"]').should('not.be.disabled').check(); // Marca o checkbox "Justificativa Obrigatória"
   }
   if (justificativaGlobal) {
-    cy.get(':nth-child(2) > .sc-cqgMZH').should('not.be.disabled').check(); // Marca o checkbox "Justificativa Global"
+    cy.get(':nth-child(2) > .sc-cqgMZH').click(); // Marca o checkbox "Justificativa Global"
 
   }
   if (moedaEstrangeira) {
