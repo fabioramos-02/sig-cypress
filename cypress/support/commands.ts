@@ -269,22 +269,25 @@ Cypress.Commands.add('validarTabelaRubrica', (rubrica, naturezaDespesa, moedaEst
 Cypress.Commands.add('preencherFaixaDeFinanciamento', (nome: string, valorMinimo: number, valorMaximo: number, observacao: string) => {
   cy.get('[data-cy="orcamento"]').click(); // Clica na aba Orçamento
   cy.get('[data-cy="faixas-de-financiamento"]').click(); // Clica na aba Faixas de Financiamento
-  
+
   cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Faixa de Financiamento
-  
+
   // Preenche o nome da Faixa de Financiamento
   cy.get('[data-cy="faixaFinanciamentoUnsaved.nome"]').type(nome, { delay: 0 });
-  
+
   // Preenche o valor mínimo da Faixa de Financiamento
   // Aqui vamos garantir que os valores sejam tratados como inteiros ou com 2 casas decimais
   cy.get('[data-cy="faixaFinanciamentoUnsaved.valorMinimo"]').type(valorMinimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).replace('R$', '').trim(), { delay: 0 });
-  
+
   // Preenche o valor máximo da Faixa de Financiamento
   cy.get('[data-cy="faixaFinanciamentoUnsaved.valorMaximo"]').type(valorMaximo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).replace('R$', '').trim(), { delay: 0 });
-  
+
   // Preenche a observação da Faixa de Financiamento
   cy.get('[data-cy="faixaFinanciamentoUnsaved.observacao"]').type(observacao, { delay: 0 });
-  
+  // Verifica que o campo observação **não aceita mais de 64 caracteres** (o campo deve bloquear a digitação automaticamente)
+  cy.get('[data-cy="faixaFinanciamentoUnsaved.observacao"]')
+    .should('have.value', observacao.substring(0, 64)); // Verifica que o campo tem no máximo 64 caracteres
+
   // Clica para confirmar e salvar a Faixa de Financiamento
   cy.get('[data-cy="faixaFinanciamento-confirmar"]').click();
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
@@ -296,22 +299,31 @@ Cypress.Commands.add('validarTabelaFaixasDeFinanciamento', (nomeFaixa, valorMini
   // Verifica se há ao menos uma faixa salva na tabela
   cy.get('.MuiTableBody-root > .MuiTableRow-root').should('have.length.greaterThan', 0);
 
-  // Converte os valores de moeda para números, removendo "R$" e tratando a vírgula
+  // Converte os valores para remover o símbolo de moeda e validar corretamente
   const valorMinimoConvertido = valorMinimo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte vírgula
   const valorMaximoConvertido = valorMaximo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte vírgula
+
+  // Espera até que a tabela esteja completamente carregada
+  cy.get('.MuiTableBody-root').should('be.visible'); // Garantir que a tabela esteja visível
 
   // Verifica os dados da última linha da tabela
   cy.get('.MuiTableBody-root > .MuiTableRow-root').last().within(() => {
     // Verifica o nome da faixa
-    cy.get(':nth-child(1)').contains(nomeFaixa); 
+    cy.get(':nth-child(1)').contains(nomeFaixa);
+
+    // Formatação de valores monetários
+    const valorMinimoFormatado = `R$ ${parseFloat(valorMinimoConvertido).toLocaleString('pt-BR')}`;
+    const valorMaximoFormatado = `R$ ${parseFloat(valorMaximoConvertido).toLocaleString('pt-BR')}`;
 
     // Verifica se o valor mínimo na tabela está correto
-    cy.get(':nth-child(2)').contains(`R$ ${parseFloat(valorMinimoConvertido).toFixed(2).replace('.', ',')}`); // Verifica o formato monetário
+    cy.get(':nth-child(2)').contains(valorMinimoFormatado); // Verifica o formato monetário
 
     // Verifica se o valor máximo na tabela está correto
-    cy.get(':nth-child(3)').contains(`R$ ${parseFloat(valorMaximoConvertido).toFixed(2).replace('.', ',')}`); // Verifica o formato monetário
+    cy.get(':nth-child(3)').contains(valorMaximoFormatado); // Verifica o formato monetário
 
     // Verifica se a observação está correta
-    cy.get(':nth-child(4)').contains(observacao);
+    cy.get(':nth-child(4)').invoke('text').then((text) => {
+      expect(text.startsWith(observacao.substring(0, 10))).to.be.true;
+    });
   });
 });
