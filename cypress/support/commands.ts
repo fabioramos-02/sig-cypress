@@ -417,3 +417,32 @@ Cypress.Commands.add('adicionarIndicadorDeProducao', (indicador) => {
   // Verifica se o sistema permite salvar e avançar para a próxima seção
   cy.get('[data-cy="menu-salvar"]').should('be.visible').click();
 });
+
+// Comando para preencher as Bolsas
+Cypress.Commands.add('preencherBolsas', (modalidadeBolsa, nivelBolsa, quantidadeBolsa = false, quantidade = 0) => {
+    cy.get('[data-cy="bolsas-do-edital"]').click(); // Clica na aba Bolsas do Edital
+    cy.get('[data-cy="bolsas"]').click(); // Clica na aba Bolsas
+
+    // Clica no botão "Adicionar" para criar uma nova Bolsa
+    cy.get('[data-cy="add-button"]').click();
+
+    // Seleciona a Modalidade de Bolsa correspondente
+    cy.get('[data-cy="bolsaEditalUnsaved.modalidadeBolsaId"]').click();
+    cy.get(`[data-cy-index="bolsaEditalUnsaved.modalidadeBolsaId-item-${modalidadeBolsa}"]`).click(); // Seleciona a modalidade de bolsa conforme o parâmetro
+
+    // Seleciona o Nível de Bolsa correspondente
+    cy.get('[data-cy="bolsaEditalUnsaved.nivelBolsaId"]').click();
+    cy.get(`[data-cy-index="bolsaEditalUnsaved.nivelBolsaId-item-${nivelBolsa}"]`).click(); // Seleciona o nível de bolsa conforme o parâmetro
+
+    // Verifica se o campo de Quantidade de Bolsa por Proposta precisa ser preenchido
+    if (quantidadeBolsa) {
+        cy.get('[data-cy="bolsaEditalUnsaved.possuiQuantidadeBolsaPorProposta"]').check(); // Marca o checkbox "Possui Quantidade de Bolsa por Proposta"
+        cy.get('[data-cy="bolsaEditalUnsaved.quantidadeBolsaPorProposta"]').clear().type(quantidade); // Preenche a quantidade de bolsas por proposta
+    }
+
+    // Clica em confirmar para salvar a Bolsa
+    cy.get('[data-cy="bolsaEdital-confirmar"]').click();
+
+    // Aguarda 1 segundo entre as interações (ajuste conforme necessário)
+    cy.wait(1000); // Adiciona uma pausa de 1 segundo entre as interações
+});
