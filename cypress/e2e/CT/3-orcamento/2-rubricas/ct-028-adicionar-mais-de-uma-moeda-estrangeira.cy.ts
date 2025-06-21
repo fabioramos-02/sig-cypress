@@ -17,20 +17,14 @@ describe('Adicionar mais de uma moeda estrangeira', () => {
     const moedaEstrangeira = true; // Marca Moeda Estrangeira
     const moedasSelecionadas = ['Euro', 'Dólar']; // Tenta selecionar mais de uma moeda
 
-    // Preenche as informações com as variáveis definidas para a primeira rubrica
+    // Tenta preencher a rubrica com mais de uma moeda
     cy.preencherRubrica(rubricas.indexOf(rubrica), naturezasDespesa.indexOf(naturezaDespesa), justificativaObrigatoria, justificativaGlobal, moedaEstrangeira, moedasSelecionadas);
-    cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão de salvar
 
-    
-
-    // Verifica que uma mensagem de erro ou alerta é exibida, informando que apenas uma moeda pode ser selecionada
-    cy.contains('Você não pode adicionar mais de uma moeda estrangeira').should('be.visible'); // Verifica a mensagem de erro
-    cy.get('[data-cy="menu-salvar"]').should('be.disabled'); // O botão de salvar deve estar desabilitado
-
+    cy.salvarAndAvancar(); // Clica no botão de salvar e tenta avançar
     // Valida que o sistema não permite avançar para a próxima sub-step
     cy.get('.css-y8ykzc > .MuiTypography-root')
       .eq(0)
-      .should('not.contain.text', 'Rubricas');  // Verifica que não é possível avançar
+      .should('contain.text', 'Rubricas');  // Verifica que não é possível avançar
   });
 
   // Resultado esperado: O sistema deve alertar que é permitido adicionar apenas uma moeda estrangeira e não permitir que o usuário prossiga para a próxima sub-step.

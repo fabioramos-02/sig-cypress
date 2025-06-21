@@ -204,21 +204,28 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
 
   // Marcar Moeda Estrangeira se o parâmetro for verdadeiro
   if (moedaEstrangeira) {
-    // Verifica se a moeda é mais de uma e exibe um erro
+    // Verifica se mais de uma moeda foi passada
     if (Array.isArray(moeda) && moeda.length > 1) {
-      throw new Error('Você não pode adicionar mais de uma moeda estrangeira');
+      // Interrompe o processo e lança um erro
+      moeda.forEach((m: string) => {
+        cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
+        cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
+        cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').clear().type(m); // Digita o nome da moeda no campo de seleção
+        cy.contains(m).click(); // Clica na moeda correspondente
+      });
+    } else {
+      cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
+
+      // Seleciona a moeda estrangeira
+      cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
+      cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').clear().type(moeda); // Digita o nome da moeda no campo de seleção
+      cy.contains(moeda).click(); // Clica na moeda correspondente
     }
-
-    cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
-
-    // Seleciona a moeda estrangeira
-    cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
-    cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').clear().type(moeda); // Digita o nome da moeda no campo de seleção
-    cy.contains(moeda).click(); // Clica na moeda correspondente
 
     // Clica para fechar o campo de seleção de Moeda Estrangeira
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
   }
+
   // Confirma e salva a Rubrica
   cy.get('[data-cy="editalRubrica-confirmar"]').click(); // Clica no botão "Confirmar" para salvar a Rubrica
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
