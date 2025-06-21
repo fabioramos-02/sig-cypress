@@ -358,3 +358,30 @@ Cypress.Commands.add('adicionarDocumentoDaProposta', (nomeDocumento: string, des
   cy.get('.MuiAccordionSummary-root').click();
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar para salvar o Documento da Proposta
 });
+
+
+// Comando para preencher Documentos Pessoais
+// Este comando seleciona o documento pessoal baseado no nome passado como parâmetro e se o documento é obrigatório.
+Cypress.Commands.add('preencherDocumentosPessoais', (documentos: { nome: string, obrigatorio: boolean }[]) => {
+  cy.get('[data-cy="documentos"]').click(); // Clica na aba Documentos
+  cy.get('[data-cy="documentos-pessoais"]').click(); // Clica na aba Documentos Pessoais
+
+  // Para cada documento na lista de documentos
+  documentos.forEach((documento, index) => {
+    cy.get('[data-cy="documentoPessoalEdital-adicionar"]').click(); // Clica no botão "Adicionar" Documento Pessoal
+    cy.wait(1000); // Adiciona um delay de 1 segundo após adicionar o documento pessoal
+
+    // Clica no campo de seleção de Documento Pessoal com base no índice
+    cy.get(`[data-cy="documentoPessoalEdital.${index}.documentoPessoalId"]`).click(); // Clica no campo de seleção
+
+    cy.get(`[data-cy-index="documentoPessoalEdital.${index}.documentoPessoalId-item-${index}"]`).click(); // Seleciona o documento
+
+
+    // Marca o checkbox "Obrigatório" se o documento for obrigatório
+    if (documento.obrigatorio) {
+      cy.get(`[data-cy="documentoPessoalEdital.${index}.obrigatorio"]`).check(); // Marca o checkbox de Obrigatório
+    }
+
+    cy.wait(500); // Adiciona uma pausa de 500ms entre as ações para evitar problemas com carregamento de elementos
+  });
+});
