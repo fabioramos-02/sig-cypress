@@ -1,8 +1,7 @@
 declare namespace Cypress {
     interface Chainable {
         typelogin: (url: string, email: string, password: string) => void
-        //  'login' aceita um parâmetro opcional 'tipoUsuario' com valor padrão 0
-        login: (tipoUsuario?: number) => void;
+        login: (tipoUsuario?: number) => void; //  'login' aceita um parâmetro opcional 'tipoUsuario' com valor padrão 0
         preencherIdentificacaoDoEdital: (titulo: string) => void;
         salvarAndAvancar: () => void;
         preencherDuracaoDoProjeto: (valor: number) => void;
@@ -13,5 +12,6 @@ declare namespace Cypress {
         preencherPeriodoSubmissao: (dataInicio: any, horarioInicio: any, dataFim: any, horarioFim: any) => void;
         preencherPrograma: (programa: any, naturezaDespesa: any, valor: any) => void;
         preencherRubrica: (rubrica: any, naturezaDespesa: any, justificativaObrigatoria?: boolean, justificativaGlobal?: boolean, moedaEstrangeira?: boolean, moeda?: any) => void;
+        validarTabelaRubrica: (rubrica: any, naturezaDespesa: any, moedaEstrangeira: any,  justificativaGlobal: any, justificativaObrigatoria: any) => void;
     }
 }

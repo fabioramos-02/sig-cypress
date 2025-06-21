@@ -191,19 +191,20 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
   // Seleciona a Natureza da Despesa
   cy.get('[data-cy="editalRubricaUnsaved.naturezaDespesaId"]').click(); // Clica no campo de seleção de Natureza da Despesa
   cy.get(`[data-cy-index="editalRubricaUnsaved.naturezaDespesaId-item-${naturezaDespesa}"]`).click(); // Seleciona a Natureza da Despesa conforme o parâmetro
+  cy.wait(500); // Aguarda 1 segundo para garantir que a natureza da despesa foi selecionada
 
   // Marcar os checkboxes de justificativa, conforme passado nos parâmetros
   if (justificativaObrigatoria) {
     cy.get('[data-cy="editalRubricaUnsaved.temJustificativaObrigatoria"]').should('not.be.disabled').check(); // Marca o checkbox "Justificativa Obrigatória"
   }
   if (justificativaGlobal) {
-    cy.get('[data-cy="editalRubricaUnsaved.temJustificativaGlobal"]').should('not.be.disabled').check(); // Marca o checkbox "Justificativa Global"
+    cy.get(':nth-child(2) > .sc-cqgMZH').click(); // Clica no campo de seleção de Justificativa Global
   }
 
   // Marcar Moeda Estrangeira se o parâmetro for verdadeiro
   if (moedaEstrangeira) {
     cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
-    
+
     // Seleciona a moeda estrangeira
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').clear().type(moeda); // Digita o nome da moeda no campo de seleção
@@ -211,11 +212,25 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
 
     //clica para fechar o campo de seleção de Moeda Estrangeira
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
-
-
   }
-
   // Confirma e salva a Rubrica
   cy.get('[data-cy="editalRubrica-confirmar"]').click(); // Clica no botão "Confirmar" para salvar a Rubrica
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
+});
+
+Cypress.Commands.add('validarTabelaRubrica', (rubrica, naturezaDespesa, moedaEstrangeira, justificativaGlobal, justificativaObrigatoria) => {
+  let rubricas = ['Diárias', 'Serviços de Terceiros', 'Material de Consumo', 'Material Permanente', 'Passagens', 'Pessoal', 'Encargos', 'Bolsa'];
+  let moedasEstrangeiras = ['Dólar', 'Euro', 'Libra', 'Iene'];
+  let naturezasDespesa = ['Custeio', 'Capital', 'Auxilio a pesquisador'];
+
+  cy.wait(1000); // Aguarda 1 segundo para garantir que o sistema esteja pronto
+  cy.get('.MuiTableBody-root > .MuiTableRow-root').should('have.length.greaterThan', 0);  // Verifica que há ao menos uma linha na tabela
+
+  cy.get('.MuiTableBody-root > .MuiTableRow-root').last().within(() => {
+    cy.get(':nth-child(1)').contains(rubricas[rubrica]);  // Verifica se a Rubrica está presente
+    cy.get(':nth-child(2)').contains(naturezasDespesa[naturezaDespesa]);  // Verifica se a Natureza da Despesa está presente
+    cy.get(':nth-child(3)').contains(moedasEstrangeiras[moedasEstrangeiras.indexOf(moedaEstrangeira)]);  // Verifica se a Moeda Estrangeira está correta
+    cy.get(':nth-child(4)').contains(justificativaGlobal ? "Sim" : "Não"); // Verifica se a Justificativa Global foi marcada corretamente
+    cy.get(':nth-child(5)').contains(justificativaObrigatoria ? "Sim" : "Não"); // Verifica se a Justificativa Obrigatória foi marcada corretamente
+  });
 });
