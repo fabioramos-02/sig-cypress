@@ -327,3 +327,23 @@ Cypress.Commands.add('validarTabelaFaixasDeFinanciamento', (nomeFaixa, valorMini
     });
   });
 });
+
+Cypress.Commands.add('adicionarDocumentoDaProposta', (nomeDocumento: string, descricao: string, formatoArquivo: string, tamanhoArquivo: number) => {
+    // Clica na aba Documentos e na opção "Documentos da Proposta"
+    cy.get('[data-cy="documentos"]').click();
+    cy.get('[data-cy="documentos-da-proposta"]').click();
+    
+    // Clica para adicionar um novo Documento da Proposta
+    cy.get('[data-cy="documentoPropostaEdital-adicionar"]').click();
+    
+    // Preenche os campos do documento
+    cy.get('.MuiAccordionSummary-content > :nth-child(1)').click(); // Clica para abrir os detalhes do documento
+    cy.get('[data-cy="documentoPropostaEdital.0.nome"]').type(nomeDocumento, { delay: 0 }); // Preenche o nome do Documento
+    cy.get('[data-cy="documentoPropostaEdital.0.descricao"]').type(descricao, { delay: 0 }); // Preenche a descrição
+    cy.get('[data-cy="documentoPropostaEdital.0.formatoArquivo"]').click(); // Seleciona o formato de arquivo
+    cy.get(`[data-cy-index="documentoPropostaEdital.0.formatoArquivo-item-${formatoArquivo}"]`).click(); // Seleciona o formato desejado
+    cy.get('[data-cy="documentoPropostaEdital.0.tamanhoArquivo"]').type(tamanhoArquivo.toString(), { delay: 0 }); // Preenche o tamanho do arquivo
+    
+    // Confirma o documento
+    cy.get('[data-cy="documentoPropostaEdital-adicionar"]').click(); 
+});

@@ -1,4 +1,4 @@
-import { gerarLoremIpsum } from "../../../../support/utils";
+import { gerarLoremIpsum } from "../../../../../support/utils";
 
 describe('Nome da Faixa de Financiamento maior que o permitido', () => {
   beforeEach(() => {

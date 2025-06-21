@@ -1,4 +1,4 @@
-import { gerarLoremIpsum } from "../../../../support/utils"; // Utilizando a função utilitária para gerar Lorem Ipsum
+import { gerarLoremIpsum } from "../../../../../support/utils"; // Utilizando a função utilitária para gerar Lorem Ipsum
 
 describe('Adicionar texto com quantidade de caracteres igual ao valor mínimo no campo do Texto do Edital', () => {
     beforeEach(() => {

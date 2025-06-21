@@ -1,4 +1,4 @@
-import { gerarLoremIpsum } from "../../../../support/utils";
+import { gerarLoremIpsum } from "../../../../../support/utils";
 
 describe('Adicionar o valor máximo no campo do Termo de Aceite', () => {
     beforeEach(() => {
