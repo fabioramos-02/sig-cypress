@@ -176,3 +176,34 @@ Cypress.Commands.add('preencherPrograma', (programa = ' ', naturezaDespesa = ' '
   // Seleciona o programa e clica em salvar
   cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
 });
+
+// Comando para preencher Rubricas
+Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativaObrigatoria = false, justificativaGlobal = false, moedaEstrangeira = false) => {
+  cy.get('[data-cy="orcamento"]').click(); // Clica na aba Orçamento
+  cy.get('[data-cy="rubricas"]').click(); // Clica na aba Rubricas
+  cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Rubrica
+
+  // Seleciona a Rubrica
+  cy.get('[data-cy="editalRubricaUnsaved.tipoEditalRubrica"]').click(); // Clica no campo de seleção de Tipo de Rubrica
+  cy.get(`[data-cy-index="editalRubricaUnsaved.tipoEditalRubrica-item-${rubrica}"]`).click(); // Seleciona a Rubrica conforme o parâmetro
+
+  // Seleciona a Natureza da Despesa
+  cy.get('[data-cy="editalRubricaUnsaved.naturezaDespesaId"]').click(); // Clica no campo de seleção de Natureza da Despesa
+  cy.get(`[data-cy-index="editalRubricaUnsaved.naturezaDespesaId-item-${naturezaDespesa}"]`).click(); // Seleciona a Natureza da Despesa conforme o parâmetro
+
+  // Marcar os checkboxes de justificativa, conforme passado nos parâmetros
+  if (justificativaObrigatoria) {
+    cy.get('[data-cy="editalRubricaUnsaved.temJustificativaObrigatoria"]').click(); // Marca o checkbox "Justificativa Obrigatória"
+  }
+  if (justificativaGlobal) {
+    cy.get(':nth-child(2) > .sc-cqgMZH').should('not.be.disabled').check(); // Marca o checkbox "Justificativa Global"
+
+  }
+  if (moedaEstrangeira) {
+    cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
+  }
+
+  // Confirma e salva a Rubrica
+  cy.get('[data-cy="editalRubrica-confirmar"]').click(); // Clica em confirmar para salvar a Rubrica
+  cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
+});
