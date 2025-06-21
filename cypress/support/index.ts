@@ -17,7 +17,7 @@ declare namespace Cypress {
         validarTabelaFaixasDeFinanciamento: (nomeFaixa: string, valorMinimo: number, valorMaximo: number, observacao: string) => void;
         adicionarDocumentoDaProposta: (nomeDocumento: string, descricao: string, formatoArquivo: string, tamanhoArquivo: number, submissaoObrigatoria?: boolean, uploadDeVariosArqvuios?: boolean) => void;
         preencherDocumentosPessoais:  (documentos: { nome: string, obrigatorio: boolean }[]) => void;
-
+        adicionarIndicadorDeProducao: (indicador: any) => void;
     }
 
 }

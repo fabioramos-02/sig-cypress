@@ -385,3 +385,35 @@ Cypress.Commands.add('preencherDocumentosPessoais', (documentos: { nome: string,
     cy.wait(500); // Adiciona uma pausa de 500ms entre as ações para evitar problemas com carregamento de elementos
   });
 });
+
+// Comando para adicionar um Indicador de Produção
+Cypress.Commands.add('adicionarIndicadorDeProducao', (indicador) => {
+  const indcadoresDeProducao = [
+    "Produção Bibliográfica",
+    "Produção Cultural",
+    "Produção Técnica ou Tecnológica",
+    "Indicador de Produção de Ciências",
+    "Teste"
+  ];
+
+  // Garante que a aba de Perguntas e Indicadores de Produção está visível antes de interagir
+  cy.get('[data-cy="perguntas"]').should('be.visible').click();
+  cy.get('[data-cy="indicadores-de-producao"]').should('be.visible').click();
+
+  cy.get('[data-cy="add-button"]').should('be.visible').click();
+
+  // Seleciona o Indicador de Produção
+  cy.get('[data-cy="indicadorProducaoUnsaved.id"]').should('be.visible').click();
+
+  // Seleciona o indicador com base no nome passado como parâmetro
+  const indiceIndicador = indcadoresDeProducao.indexOf(indicador);
+  cy.get(`[data-cy-index="indicadorProducaoUnsaved.id-item-${indiceIndicador}"]`)
+    .should('be.visible')
+    .click();
+
+  // Clica no botão "Confirmar" para tentar adicionar o indicador de produção
+  cy.get('[data-cy="indicadorProducao-confirmar"]').should('be.visible').click();
+
+  // Verifica se o sistema permite salvar e avançar para a próxima seção
+  cy.get('[data-cy="menu-salvar"]').should('be.visible').click();
+});
