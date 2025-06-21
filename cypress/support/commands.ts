@@ -273,7 +273,7 @@ Cypress.Commands.add('preencherFaixaDeFinanciamento', (nome: string, valorMinimo
   cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Faixa de Financiamento
   
   // Preenche o nome da Faixa de Financiamento
-  cy.get('[data-cy="faixaFinanciamentoUnsaved.nome"]').type(nome, { delay: 1 });
+  cy.get('[data-cy="faixaFinanciamentoUnsaved.nome"]').type(nome, { delay: 0 });
   
   // Preenche o valor mínimo da Faixa de Financiamento
   // Aqui vamos garantir que os valores sejam tratados como inteiros ou com 2 casas decimais
@@ -296,15 +296,22 @@ Cypress.Commands.add('validarTabelaFaixasDeFinanciamento', (nomeFaixa, valorMini
   // Verifica se há ao menos uma faixa salva na tabela
   cy.get('.MuiTableBody-root > .MuiTableRow-root').should('have.length.greaterThan', 0);
 
-  // Converte o valor para remover o símbolo de moeda e validar corretamente
-  const valorMinimoConvertido = valorMinimo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte a vírgula
-  const valorMaximoConvertido = valorMaximo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte a vírgula
+  // Converte os valores de moeda para números, removendo "R$" e tratando a vírgula
+  const valorMinimoConvertido = valorMinimo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte vírgula
+  const valorMaximoConvertido = valorMaximo.toString().replace('R$', '').replace(',', '.').trim(); // Remove R$ e converte vírgula
 
   // Verifica os dados da última linha da tabela
   cy.get('.MuiTableBody-root > .MuiTableRow-root').last().within(() => {
-    cy.get(':nth-child(1)').contains(nomeFaixa); // Verifica se o nome da faixa está correto
-    cy.get(':nth-child(2)').contains(valorMinimoConvertido); // Verifica se o valor mínimo está correto
-    cy.get(':nth-child(3)').contains(valorMaximoConvertido); // Verifica se o valor máximo está correto
-    cy.get(':nth-child(4)').contains(observacao); // Verifica se a observação está correta
+    // Verifica o nome da faixa
+    cy.get(':nth-child(1)').contains(nomeFaixa); 
+
+    // Verifica se o valor mínimo na tabela está correto
+    cy.get(':nth-child(2)').contains(`R$ ${parseFloat(valorMinimoConvertido).toFixed(2).replace('.', ',')}`); // Verifica o formato monetário
+
+    // Verifica se o valor máximo na tabela está correto
+    cy.get(':nth-child(3)').contains(`R$ ${parseFloat(valorMaximoConvertido).toFixed(2).replace('.', ',')}`); // Verifica o formato monetário
+
+    // Verifica se a observação está correta
+    cy.get(':nth-child(4)').contains(observacao);
   });
 });
