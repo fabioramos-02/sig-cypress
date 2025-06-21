@@ -133,11 +133,13 @@ Cypress.Commands.add('preencherPeriodoSubmissao', (dataInicio, horarioInicio, da
 
     // Preenche a data de início e horário
     cy.get('[data-cy="chamadaUnsaved.inicio"]').type(dataInicio); // Preenche a data de início
-    cy.get('[data-cy="chamadaUnsaved.horaInicio"]').type(horarioInicio); // Preenche o horário de início
+    cy.get('[data-cy="chamadaUnsaved.inicio"]').type(horarioInicio); // Preenche a data de início
+   
 
     // Preenche a data de término e horário
     cy.get('[data-cy="chamadaUnsaved.termino"]').type(dataFim); // Preenche a data de término
-    cy.get('[data-cy="chamadaUnsaved.horaTermino"]').type(horarioFim); // Preenche o horário de término
+    cy.get('[data-cy="chamadaUnsaved.termino"]').type(horarioFim); // Preenche a data de término
+
 
     // Clica no botão para confirmar os dados
     cy.get('[data-cy="chamada-confirmar"]').click();
