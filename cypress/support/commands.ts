@@ -121,6 +121,6 @@ Cypress.Commands.add('selecionarEstadosNaAbrangencia', (estados: string[] | stri
 // Comando para enviar um arquivo PDF
 Cypress.Commands.add('enviarArquivoPdf', (arquivo: string) => {
   cy.get('[data-cy="anexos"]').click(); // Clica na aba Anexos
-  cy.get('input[type="file"]').attachFile(arquivo); // Anexa o arquivo PDF ao campo de upload
+  cy.get('[data-cy="editalAnexo-procure"]').selectFile(arquivo); // Anexa o arquivo PDF ao campo de upload
   cy.wait(1000); // Aguarda 1 segundo para garantir que o upload seja concluído
 });

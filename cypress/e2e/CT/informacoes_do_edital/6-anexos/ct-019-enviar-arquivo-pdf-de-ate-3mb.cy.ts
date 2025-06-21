@@ -11,10 +11,14 @@ describe('Enviar arquivo pdf de até 3 MB', () => {
 
         // Função para enviar o arquivo PDF
         cy.enviarArquivoPdf(arquivoPdf); // Envia o arquivo PDF no campo de anexo
+        cy.salvarAndAvancar(); // Clica no botão "Salvar" e tenta avançar para a próxima seção
 
-        // // Valida que o sistema permite avançar para a próxima seção após o upload do arquivo
-        // cy.get('.css-y8ykzc > .MuiTypography-root')
-        //     .eq(0)
-        //     .should('contain.text', 'Texto do Edital');  // Verifica se a aba 'Texto do Edital' está visível
+        
+        // Valida que o sistema permite avançar para a próxima seção após o upload do arquivo
+        cy.get('.css-y8ykzc > .MuiTypography-root')
+            .eq(0)
+            .should('contain.text', 'Período de Submissão');  // Verifica se a aba 'Período de Submissão' está visível
     });
+
+    // Resultado esperado: O sistema deve aceitar corretamente o arquivo e permitir que o usuário salve e/ou prossiga para a próxima step.
 });
