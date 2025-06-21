@@ -10,7 +10,7 @@ describe('Enviar arquivo pdf de até 3 MB', () => {
         const arquivoPdf = 'teste.pdf'; // Caminho absoluto do arquivo PDF até 3MB
 
         // Função para enviar o arquivo PDF
-        cy.enviarArquivoPdf(arquivoPdf); // Envia o arquivo PDF no campo de anexo
+        cy.enviarArquivo(arquivoPdf); // Envia o arquivo PDF no campo de anexo
         cy.salvarAndAvancar(); // Clica no botão "Salvar" e tenta avançar para a próxima seção
 
         

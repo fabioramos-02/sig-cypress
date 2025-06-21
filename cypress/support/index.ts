@@ -9,6 +9,7 @@ declare namespace Cypress {
         preencherTermoDeAceite: (texto: string) => void;
         preencherTextoDoEdital: (texto: string) => void;
         selecionarEstadosNaAbrangencia: (estados: string[] | string) => void;
-        enviarArquivoPdf: (caminhoArquivo: string) => void;
+        enviarArquivo: (caminhoArquivo: string) => void;
+        preencherPeriodoSubmissao: (dataInicio: any, horarioInicio: any, dataFim: any, horarioFim: any) => void;
     }
 }

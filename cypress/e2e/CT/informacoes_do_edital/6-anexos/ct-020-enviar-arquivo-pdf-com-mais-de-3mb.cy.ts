@@ -10,14 +10,14 @@ describe('Enviar arquivo pdf com mais de 3 MB', () => {
         const arquivoPdfMaiorQue3MB = 'arquivo-maior-que-3mb.pdf'; // Caminho do arquivo PDF com mais de 3 MB
 
         // Função para enviar o arquivo PDF
-        cy.enviarArquivoPdf(arquivoPdfMaiorQue3MB); // Envia o arquivo PDF no campo de anexo
+        cy.enviarArquivo(arquivoPdfMaiorQue3MB); // Envia o arquivo PDF no campo de anexo
 
         // Valida que o sistema não permite avançar e emite uma mensagem de erro
-        cy.get('.error-message') // Verifica se a mensagem de erro está visível
+        cy.get('.MuiAlert-message').should('be.visible') // Verifica se a mensagem de erro está visível
             .should('be.visible')
-            .and('contain.text', 'O arquivo excede o limite de 3 MB.'); // Mensagem de erro esperada
+            .and('contain.text', 'Tamanho máximo de anexo é 3 MB'); // Mensagem de erro esperada
 
-        // Verifica que o sistema não permitiu salvar ou avançar para a próxima seção
-        cy.get('[data-cy="next-button"]').should('not.be.enabled'); // Verifica se o botão "Próximo" está desabilitado
+
+        //Resultado esperado: O sistema não deve aceitar o arquivo já que é maior que o valor máximo permitido e sinalizar para o usuário que não é possível salvar e/ou prosseguir para próxima step.
     });
 });

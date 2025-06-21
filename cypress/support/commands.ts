@@ -118,9 +118,27 @@ Cypress.Commands.add('selecionarEstadosNaAbrangencia', (estados: string[] | stri
   cy.get('[data-cy="next-button"]').click(); // Clica no botão "Próximo" para avançar
 });
 
-// Comando para enviar um arquivo PDF
-Cypress.Commands.add('enviarArquivoPdf', (arquivo: string) => {
+// Comando para enviar um arquivo
+Cypress.Commands.add('enviarArquivo', (arquivo: string) => {
   cy.get('[data-cy="anexos"]').click(); // Clica na aba Anexos
   cy.get('[data-cy="editalAnexo-procure"]').selectFile(arquivo); // Anexa o arquivo PDF ao campo de upload
   cy.wait(1000); // Aguarda 1 segundo para garantir que o upload seja concluído
+});
+
+// Comando reutilizável para preencher o Período de Submissão
+Cypress.Commands.add('preencherPeriodoSubmissao', (dataInicio, horarioInicio, dataFim, horarioFim) => {
+    cy.get('[data-cy="cronograma"]').click(); // Clica na aba Cronograma
+    cy.get('[data-cy="periodo-de-submissao"]').click(); // Clica na aba Período de Submissão
+    cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar um novo Período de Submissão
+
+    // Preenche a data de início e horário
+    cy.get('[data-cy="chamadaUnsaved.inicio"]').type(dataInicio); // Preenche a data de início
+    cy.get('[data-cy="chamadaUnsaved.horaInicio"]').type(horarioInicio); // Preenche o horário de início
+
+    // Preenche a data de término e horário
+    cy.get('[data-cy="chamadaUnsaved.termino"]').type(dataFim); // Preenche a data de término
+    cy.get('[data-cy="chamadaUnsaved.horaTermino"]').type(horarioFim); // Preenche o horário de término
+
+    // Clica no botão para confirmar os dados
+    cy.get('[data-cy="chamada-confirmar"]').click();
 });
