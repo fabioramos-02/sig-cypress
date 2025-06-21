@@ -12,6 +12,8 @@ declare namespace Cypress {
         preencherPeriodoSubmissao: (dataInicio: any, horarioInicio: any, dataFim: any, horarioFim: any) => void;
         preencherPrograma: (programa: any, naturezaDespesa: any, valor: any) => void;
         preencherRubrica: (rubrica: any, naturezaDespesa: any, justificativaObrigatoria?: boolean, justificativaGlobal?: boolean, moedaEstrangeira?: boolean, moeda?: any) => void;
-        validarTabelaRubrica: (rubrica: any, naturezaDespesa: any, moedaEstrangeira: any,  justificativaGlobal: any, justificativaObrigatoria: any) => void;
+        validarTabelaRubrica: (rubrica: any, naturezaDespesa: any, moedaEstrangeira: any, justificativaGlobal: any, justificativaObrigatoria: any) => void;
+        preencherFaixaDeFinanciamento: (nome: string, valorMinimo: number, valorMaximo: number, observacao: string) => void;
+        validarTabelaFaixasDeFinanciamento: (nomeFaixa: string, valorMinimo: number, valorMaximo: number, observacao: string) => void;
     }
 }
