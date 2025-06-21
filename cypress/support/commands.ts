@@ -127,20 +127,52 @@ Cypress.Commands.add('enviarArquivo', (arquivo: string) => {
 
 // Comando reutilizável para preencher o Período de Submissão
 Cypress.Commands.add('preencherPeriodoSubmissao', (dataInicio, horarioInicio, dataFim, horarioFim) => {
-    cy.get('[data-cy="cronograma"]').click(); // Clica na aba Cronograma
-    cy.get('[data-cy="periodo-de-submissao"]').click(); // Clica na aba Período de Submissão
-    cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar um novo Período de Submissão
+  cy.get('[data-cy="cronograma"]').click(); // Clica na aba Cronograma
+  cy.get('[data-cy="periodo-de-submissao"]').click(); // Clica na aba Período de Submissão
+  cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar um novo Período de Submissão
 
-    // Preenche a data de início e horário
-    cy.get('[data-cy="chamadaUnsaved.inicio"]').type(dataInicio); // Preenche a data de início
-    cy.get('[data-cy="chamadaUnsaved.inicio"]').type(horarioInicio); // Preenche a data de início
-   
-
-    // Preenche a data de término e horário
-    cy.get('[data-cy="chamadaUnsaved.termino"]').type(dataFim); // Preenche a data de término
-    cy.get('[data-cy="chamadaUnsaved.termino"]').type(horarioFim); // Preenche a data de término
+  // Preenche a data de início e horário
+  cy.get('[data-cy="chamadaUnsaved.inicio"]').type(dataInicio); // Preenche a data de início
+  cy.get('[data-cy="chamadaUnsaved.inicio"]').type(horarioInicio); // Preenche a data de início
 
 
-    // Clica no botão para confirmar os dados
-    cy.get('[data-cy="chamada-confirmar"]').click();
+  // Preenche a data de término e horário
+  cy.get('[data-cy="chamadaUnsaved.termino"]').type(dataFim); // Preenche a data de término
+  cy.get('[data-cy="chamadaUnsaved.termino"]').type(horarioFim); // Preenche a data de término
+
+
+  // Clica no botão para confirmar os dados
+  cy.get('[data-cy="chamada-confirmar"]').click();
+});
+
+// Comando para preencher Programa
+Cypress.Commands.add('preencherPrograma', (programa = ' ', naturezaDespesa = ' ', valor = ' ') => {
+  cy.get('[data-cy="orcamento"]').click(); // Clica na aba Orçamento
+  cy.get('[data-cy="programa"]').click(); // Clica em Programa para selecionar um programa
+
+  // Seleciona o programa
+  if (programa != " ") {
+    cy.get('[data-cy="programaId"]').click(); // Clica no campo de seleção de Programa
+    cy.get(`[data-cy-index="programaId-item-${programa}"]`).click(); // Seleciona o programa conforme o parâmetro
+  }
+
+
+  // Clica para adicionar uma nova Natureza da Despesa
+  cy.get('[data-cy="add-natureza-da-despesa"]').click(); // Clica para adicionar uma nova Natureza da Despesa
+  if (naturezaDespesa != ' ') {
+    // Seleciona a Natureza da Despesa
+    cy.get('[data-cy="naturezaDespesaEditalUnsaved.naturezaDespesaId"]').click(); // Seleciona a Natureza da Despesa
+    cy.get(`[data-cy-index="naturezaDespesaEditalUnsaved.naturezaDespesaId-item-${naturezaDespesa}"]`).click(); // Seleciona a natureza da despesa conforme o parâmetro
+    cy.wait(500); // Aguarda 1 segundo para garantir que a natureza da despesa foi selecionada
+  }
+
+  if (valor != ' ') {
+    // Preenche o valor da despesa
+    cy.get('[data-cy="naturezaDespesaEditalUnsaved.valor"]').clear().type(valor); // Preenche o valor da despesa
+  }
+  // Clica em confirmar para salvar a Natureza da Despesa
+  cy.get('[data-cy="naturezaDespesaEdital-confirmar"]').click();
+
+  // Seleciona o programa e clica em salvar
+  cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar"
 });

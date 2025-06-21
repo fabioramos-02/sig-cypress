@@ -11,5 +11,6 @@ declare namespace Cypress {
         selecionarEstadosNaAbrangencia: (estados: string[] | string) => void;
         enviarArquivo: (caminhoArquivo: string) => void;
         preencherPeriodoSubmissao: (dataInicio: any, horarioInicio: any, dataFim: any, horarioFim: any) => void;
+        preencherPrograma: (programa: any, naturezaDespesa: any, valor: any) => void;
     }
 }
