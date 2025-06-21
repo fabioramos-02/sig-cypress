@@ -179,7 +179,7 @@ Cypress.Commands.add('preencherPrograma', (programa = ' ', naturezaDespesa = ' '
 
 // Comando para preencher Rubricas
 // Comando para preencher Rubricas com Moeda Estrangeira, Justificativa, etc.
-Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativaObrigatoria = false, justificativaGlobal = false, moedaEstrangeira = false, moeda = '') => {
+Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativaObrigatoria = false, justificativaGlobal = false, moedaEstrangeira = false, moeda: any) => {
 
   cy.get('[data-cy="orcamento"]').click(); // Clica na aba Orçamento
   cy.get('[data-cy="rubricas"]').click(); // Clica na aba Rubricas
@@ -204,6 +204,11 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
 
   // Marcar Moeda Estrangeira se o parâmetro for verdadeiro
   if (moedaEstrangeira) {
+    // Verifica se a moeda é mais de uma e exibe um erro
+    if (Array.isArray(moeda) && moeda.length > 1) {
+      throw new Error('Você não pode adicionar mais de uma moeda estrangeira');
+    }
+
     cy.get('[data-cy="editalRubricaUnsaved.temMoedaEstrangeira"]').should('not.be.disabled').check(); // Marca o checkbox "Moeda Estrangeira"
 
     // Seleciona a moeda estrangeira
@@ -211,7 +216,7 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').clear().type(moeda); // Digita o nome da moeda no campo de seleção
     cy.contains(moeda).click(); // Clica na moeda correspondente
 
-    //clica para fechar o campo de seleção de Moeda Estrangeira
+    // Clica para fechar o campo de seleção de Moeda Estrangeira
     cy.get('[data-cy="editalRubricaUnsaved.moedaEstrangeira"]').click(); // Clica no campo de seleção de Moeda Estrangeira
   }
   // Confirma e salva a Rubrica
