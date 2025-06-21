@@ -180,7 +180,7 @@ Cypress.Commands.add('preencherPrograma', (programa = ' ', naturezaDespesa = ' '
 // Comando para preencher Rubricas
 // Comando para preencher Rubricas com Moeda Estrangeira, Justificativa, etc.
 Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativaObrigatoria = false, justificativaGlobal = false, moedaEstrangeira = false, moeda = '') => {
-  
+
   cy.get('[data-cy="orcamento"]').click(); // Clica na aba Orçamento
   cy.get('[data-cy="rubricas"]').click(); // Clica na aba Rubricas
   cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar uma nova Rubrica
@@ -223,9 +223,9 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
 // Este comando verifica se a última linha da tabela de Rubricas contém os dados inseridos corretamente.
 Cypress.Commands.add('validarTabelaRubrica', (rubrica, naturezaDespesa, moedaEstrangeira, justificativaGlobal, justificativaObrigatoria) => {
   let simbolos = {
-    'Dólar': 'US$', 
-    'Euro': '€', 
-    'Libra': '£', 
+    'Dólar': 'US$',
+    'Euro': '€',
+    'Libra': '£',
     'Iene': '¥'
   };
 
@@ -237,9 +237,15 @@ Cypress.Commands.add('validarTabelaRubrica', (rubrica, naturezaDespesa, moedaEst
     cy.get(':nth-child(1)').contains(rubrica);  // Verifica se o nome da Rubrica está presente no conteúdo
     //coluna 2: Natureza da Despesa
     cy.get(':nth-child(2)').contains(naturezaDespesa);  // Verifica se o nome da Natureza da Despesa está presente no conteúdo
-    //coluna 3: Moeda Estrangeira
-    // Verifica se o símbolo da Moeda Estrangeira está presente
-    cy.get(':nth-child(3)').contains(simbolos[moedaEstrangeira] || moedaEstrangeira);  // Verifica o símbolo da Moeda Estrangeira
+
+    // Verifica se a moeda estrangeira está vazia caso não tenha sido marcada
+    if (!moedaEstrangeira) {
+      cy.get(':nth-child(3)').should('have.text', '');  // Verifica se moeda está vazia
+    } else {
+      // Verifica se o símbolo da Moeda Estrangeira está presente
+      cy.get(':nth-child(3)').contains(simbolos[moedaEstrangeira] || moedaEstrangeira);  // Verifica o símbolo da Moeda Estrangeira
+    }
+
     //coluna 4: Justificativa Global
     cy.get(':nth-child(4)').contains(justificativaGlobal ? "Sim" : "Não"); // Verifica se a Justificativa Global foi marcada corretamente
     //coluna 5: Justificativa Obrigatória
