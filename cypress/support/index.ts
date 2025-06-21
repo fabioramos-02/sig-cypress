@@ -12,6 +12,6 @@ declare namespace Cypress {
         enviarArquivo: (caminhoArquivo: string) => void;
         preencherPeriodoSubmissao: (dataInicio: any, horarioInicio: any, dataFim: any, horarioFim: any) => void;
         preencherPrograma: (programa: any, naturezaDespesa: any, valor: any) => void;
-        preencherRubrica: (rubrica: any, naturezaDespesa: any, justificativaObrigatoria?: boolean, justificativaGlobal?: boolean, moedaEstrangeira?: boolean) => void;
+        preencherRubrica: (rubrica: any, naturezaDespesa: any, justificativaObrigatoria?: boolean, justificativaGlobal?: boolean, moedaEstrangeira?: boolean, moeda?: any) => void;
     }
 }
