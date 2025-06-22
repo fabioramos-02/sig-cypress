@@ -14,10 +14,15 @@ describe('Validar adição de moeda estrangeira em Rubrica', () => {
 
         // Preenche as informações de Bolsa com Moeda Estrangeira
         cy.preencherBolsas(modalidadeBolsa, nivelBolsa, quantidadeBolsa, quantidade);
+        cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar" para tentar salvar as alterações
+        //Sistema deve exibir mensagem de erro ao tentar salvar
+
+        cy.get('.MuiAlert-message').should('be.visible')
+            .and('have.text', 'A quantidade de bolsas por proposta deve ser menor ou igual a 999.999.999.999.'); // Verifica se a mensagem de erro está visível
 
 
 
     });
 
-    // Resultado esperado: O sistema deve permitir que o usuário salve e/ou prossiga para a próxima sub-step.
+    // Resultado esperado: O sistema não deve aceitar está bolsa, já que o valor em Quantidade por Proposta está acima do permitido. Além disso, deve sinalizar ao usuário que ele necessita alterar o valor, inserindo um número no intervalo aceito.
 });
