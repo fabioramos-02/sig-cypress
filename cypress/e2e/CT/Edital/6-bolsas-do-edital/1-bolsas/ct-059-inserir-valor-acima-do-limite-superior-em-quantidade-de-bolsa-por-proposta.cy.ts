@@ -1,4 +1,4 @@
-describe('Validar adição de moeda estrangeira em Rubrica', () => {
+describe('Validar se o sistema aceita um valor acima do limite superior permitido em Quantidade de Bolsa por proposta.', () => {
     beforeEach(() => {
         // Realiza login no sistema antes de cada teste
         cy.login(0); // Realiza login como Gestor (índice 0)
@@ -6,7 +6,7 @@ describe('Validar adição de moeda estrangeira em Rubrica', () => {
         cy.preencherIdentificacaoDoEdital("Grupo-01 E.M. 005/2025 fabio-ramos Edital Médio"); // Preenche as informações de identificação do edital
     });
 
-    it('Deve permitir que o usuário adicione uma Rubrica com Moeda Estrangeira', () => {
+    it('O sistema não deve aceitar está bolsa, já que o valor em Quantidade por Proposta está acima do permitido. Além disso, deve sinalizar ao usuário que ele necessita alterar o valor, inserindo um número no intervalo aceito.', () => {
         const modalidadeBolsa = 1; // Seleciona a primeira Modalidade de Bolsa (DCT)
         const nivelBolsa = 0; // Seleciona o primeiro Nível de Bolsa (0H - R$ 4.484,00)
         const quantidadeBolsa = true; // Marca a opção de quantidade de bolsas
