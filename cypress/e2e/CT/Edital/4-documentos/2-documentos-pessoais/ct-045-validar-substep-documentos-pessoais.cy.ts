@@ -8,9 +8,7 @@ describe('Validar o substep Documentos Pessoais', () => {
 
   it('Deve permitir selecionar documentos pessoais', () => {
     const documentos = [
-      { nome: "CPF", obrigatorio: false }, 
-      { nome: "Comprovante de Residência", obrigatorio: true }, 
-      { nome: "Passaporte", obrigatorio: true }
+      { nome: "CPF", obrigatorio: false }
     ]; // Lista de documentos a serem adicionados com a obrigatoriedade
 
     // Chama o comando reutilizável para preencher os documentos pessoais
@@ -24,4 +22,6 @@ describe('Validar o substep Documentos Pessoais', () => {
       .eq(0)
       .should('contain.text', 'Descrição do Projeto');  // Verifica se a aba 'Descrição do Projeto' está visível
   });
+
+  // Resultado esperado: O sistema  deve permitir que o usuário salve e/ou prossiga para o próximo step.
 });

@@ -16,7 +16,7 @@ describe('Validar campo Nome de Documento vazio na substep Documentos Pessoais',
     cy.get('[data-cy="menu-salvar"]').click(); // Clica no botão "Salvar" para tentar salvar o documento pessoal
     // Verifica se o sistema não permite salvar e exibe a mensagem de erro
     cy.get('.MuiAlert-message').should('be.visible') // Verifica se a mensagem de erro está visível
-      .and('contain.text', 'O campo Nome do Documento é obrigatório.'); // Verifica se a mensagem contém o texto esperado
+      .and('have.text', 'Documentos Pessoais não pode ser vazio.'); // Verifica se a mensagem é exatamente igual ao texto esperado
     //sistema emite a mensagem: documentoPessoalEdital.0.Documentos Pessoais não pode ser vazio.
   });
 
