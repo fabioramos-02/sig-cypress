@@ -20,6 +20,7 @@ declare namespace Cypress {
         adicionarIndicadorDeProducao: (indicador: any) => void;
         preencherBolsas: (modalidadeBolsa: any, nivelBolsa: any, quantidadeBolsa ?: boolean, quantidade?: any) => void;
         preencherAbrangenciaDaSubmissao: () => void;
+        validarTabelaBolsas: (modalidadeBolsa: any, nivelBolsa: any, quantidade: any) => void;
     }
 
 }

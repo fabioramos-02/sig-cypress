@@ -460,3 +460,22 @@ Cypress.Commands.add('preencherAbrangenciaDaSubmissao', () => {
   cy.wait(1000); // Aguarda 1 segundo para garantir que o campo esteja pronto
   cy.get('[data-cy-index="abrangencia.0.abrangenciaMunicipio-item-0"]').click(); // Seleciona o município conforme o parâmetro
 });
+
+// Comando para validar a tabela de Bolsas
+// Este comando verifica se a última linha da tabela de Bolsas contém os dados inseridos corretamente.
+Cypress.Commands.add('validarTabelaBolsas', (modalidadeBolsa, nivelBolsa, quantidade) => {
+  cy.wait(1000); // Aguarda 1 segundo para garantir que o sistema esteja pronto
+  
+  cy.get('.MuiTableBody-root > .MuiTableRow-root').should('have.length.greaterThan', 0);  // Verifica que há ao menos uma linha na tabela
+
+  cy.get('.MuiTableBody-root > .MuiTableRow-root').last().within(() => {
+    // Coluna 1: Modalidade de Bolsa
+    cy.get(':nth-child(1)').contains(modalidadeBolsa);  // Verifica se a Modalidade de Bolsa está presente no conteúdo
+
+    // Coluna 2: Nível de Bolsa
+    cy.get(':nth-child(2)').contains(nivelBolsa);  // Verifica se o Nível de Bolsa está presente no conteúdo
+
+    // Coluna 3: Quantidade de Bolsa por Proposta (não visível, já que o campo não foi selecionado)
+    cy.get(':nth-child(3)').contains(quantidade);  // Verifica se a quantidade de bolsa está vazia, pois não foi selecionada
+  });
+});
