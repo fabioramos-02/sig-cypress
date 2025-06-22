@@ -19,6 +19,7 @@ declare namespace Cypress {
         preencherDocumentosPessoais:  (documentos: { nome: string, obrigatorio: boolean }[]) => void;
         adicionarIndicadorDeProducao: (indicador: any) => void;
         preencherBolsas: (modalidadeBolsa: any, nivelBolsa: any, quantidadeBolsa ?: boolean, quantidade?: any) => void;
+        preencherAbrangenciaDaSubmissao: () => void;
     }
 
 }

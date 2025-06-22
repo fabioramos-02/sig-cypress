@@ -420,29 +420,42 @@ Cypress.Commands.add('adicionarIndicadorDeProducao', (indicador) => {
 
 // Comando para preencher as Bolsas
 Cypress.Commands.add('preencherBolsas', (modalidadeBolsa, nivelBolsa, quantidadeBolsa = false, quantidade = 0) => {
-    cy.get('[data-cy="bolsas-do-edital"]').click(); // Clica na aba Bolsas do Edital
-    cy.get('[data-cy="bolsas"]').click(); // Clica na aba Bolsas
+  cy.get('[data-cy="bolsas-do-edital"]').click(); // Clica na aba Bolsas do Edital
+  cy.get('[data-cy="bolsas"]').click(); // Clica na aba Bolsas
 
-    // Clica no botão "Adicionar" para criar uma nova Bolsa
-    cy.get('[data-cy="add-button"]').click();
+  // Clica no botão "Adicionar" para criar uma nova Bolsa
+  cy.get('[data-cy="add-button"]').click();
 
-    // Seleciona a Modalidade de Bolsa correspondente
-    cy.get('[data-cy="bolsaEditalUnsaved.modalidadeBolsaId"]').click();
-    cy.get(`[data-cy-index="bolsaEditalUnsaved.modalidadeBolsaId-item-${modalidadeBolsa}"]`).click(); // Seleciona a modalidade de bolsa conforme o parâmetro
+  // Seleciona a Modalidade de Bolsa correspondente
+  cy.get('[data-cy="bolsaEditalUnsaved.modalidadeBolsaId"]').click();
+  cy.get(`[data-cy-index="bolsaEditalUnsaved.modalidadeBolsaId-item-${modalidadeBolsa}"]`).click(); // Seleciona a modalidade de bolsa conforme o parâmetro
 
-    // Seleciona o Nível de Bolsa correspondente
-    cy.get('[data-cy="bolsaEditalUnsaved.nivelBolsaId"]').click();
-    cy.get(`[data-cy-index="bolsaEditalUnsaved.nivelBolsaId-item-${nivelBolsa}"]`).click(); // Seleciona o nível de bolsa conforme o parâmetro
+  // Seleciona o Nível de Bolsa correspondente
+  cy.get('[data-cy="bolsaEditalUnsaved.nivelBolsaId"]').click();
+  cy.get(`[data-cy-index="bolsaEditalUnsaved.nivelBolsaId-item-${nivelBolsa}"]`).click(); // Seleciona o nível de bolsa conforme o parâmetro
 
-    // Verifica se o campo de Quantidade de Bolsa por Proposta precisa ser preenchido
-    if (quantidadeBolsa) {
-        cy.get('[data-cy="bolsaEditalUnsaved.possuiQuantidadeBolsaPorProposta"]').check(); // Marca o checkbox "Possui Quantidade de Bolsa por Proposta"
-        cy.get('[data-cy="bolsaEditalUnsaved.quantidadeBolsaPorProposta"]').clear().type(quantidade); // Preenche a quantidade de bolsas por proposta
-    }
+  // Verifica se o campo de Quantidade de Bolsa por Proposta precisa ser preenchido
+  if (quantidadeBolsa) {
+    cy.get('[data-cy="bolsaEditalUnsaved.possuiQuantidadeBolsaPorProposta"]').check(); // Marca o checkbox "Possui Quantidade de Bolsa por Proposta"
+    cy.get('[data-cy="bolsaEditalUnsaved.quantidadeBolsaPorProposta"]').clear().type(quantidade); // Preenche a quantidade de bolsas por proposta
+  }
 
-    // Clica em confirmar para salvar a Bolsa
-    cy.get('[data-cy="bolsaEdital-confirmar"]').click();
+  // Clica em confirmar para salvar a Bolsa
+  cy.get('[data-cy="bolsaEdital-confirmar"]').click();
 
-    // Aguarda 1 segundo entre as interações (ajuste conforme necessário)
-    cy.wait(1000); // Adiciona uma pausa de 1 segundo entre as interações
+  // Aguarda 1 segundo entre as interações (ajuste conforme necessário)
+  cy.wait(1000); // Adiciona uma pausa de 1 segundo entre as interações
+});
+
+// Comando para preencher a Abrangência com múltiplos estados e municípios
+Cypress.Commands.add('preencherAbrangenciaDaSubmissao', () => {
+  cy.get('[data-cy="abrangencia"]').click(); // Clica no campo "Abrangência"
+  cy.get('[data-cy="abrangencia-adicionar"]').click(); // Clica no botão para adicionar abrangência
+
+  cy.get('[data-cy="abrangencia.0.estadoId"]').click(); // Clica no campo "Estado" pega o index 0
+  cy.get(`[data-cy-index="abrangencia.0.estadoId-item-0"]`).click(); // Seleciona o estado conforme o parâmetro
+
+  cy.get('[data-cy="abrangencia.0.abrangenciaMunicipio"]').click(); // Clica no campo "Abrangência Município"
+  cy.wait(1000); // Aguarda 1 segundo para garantir que o campo esteja pronto
+  cy.get('[data-cy-index="abrangencia.0.abrangenciaMunicipio-item-0"]').click(); // Seleciona o município conforme o parâmetro
 });
