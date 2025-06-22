@@ -9,9 +9,9 @@ describe('Definir Período de Submissão', () => {
     it('Deve permitir que o usuário defina o Período de Submissão', () => {
         // Define o Período de Submissão com as datas e horários fornecidos
         const dataInicio = '20/06/2025';
-        const horarioInicio = '01:00:00';
+        const horarioInicio = '00:00:00';
         const dataFim = '22/06/2025';
-        const horarioFim = '02:00:00';
+        const horarioFim = '00:00:00';
 
         cy.preencherPeriodoSubmissao(dataInicio, horarioInicio, dataFim, horarioFim); // Preenche o Período de Submissão
 

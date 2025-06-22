@@ -10,7 +10,7 @@ describe('Validar o campo Programa não preenchido', () => {
 
         cy.preencherPrograma(undefined, undefined, undefined); // Tenta preencher o Programa sem selecionar nada
 
-        cy.salvarAndAvancar(); // Tenta salvar e avançar para a próxima seção
+        cy.get('[data-cy="menu-salvar"]').click(); // Clica no menu de salvar
 
         // Valida que o sistema não permite salvar e emite uma mensagem de erro
         cy.get('.MuiAlert-message')
