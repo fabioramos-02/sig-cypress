@@ -12,7 +12,7 @@ describe('Adicionar a mesma Rubrica mais de uma vez', () => {
 
     const rubrica = 'Diárias'; // Passa o nome da Rubrica diretamente
     const naturezaDespesa = 'Custeio'; // Passa o nome da Natureza da Despesa diretamente
-    const justificativaObrigatoria = true; // Marca a Justificativa Obrigatória
+    const justificativaObrigatoria = false; // Marca a Justificativa Obrigatória
     const justificativaGlobal = false; // Não marca a Justificativa Global
     const moedaEstrangeira = true; // Seleciona Moeda Estrangeira
     const moedaSelecionada = 'Euro'; // Seleciona a moeda Euro

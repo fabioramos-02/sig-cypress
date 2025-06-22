@@ -192,7 +192,7 @@ Cypress.Commands.add('preencherRubrica', (rubrica, naturezaDespesa, justificativ
   // Seleciona a Natureza da Despesa
   cy.get('[data-cy="editalRubricaUnsaved.naturezaDespesaId"]').click(); // Clica no campo de seleção de Natureza da Despesa
   cy.get(`[data-cy-index="editalRubricaUnsaved.naturezaDespesaId-item-${naturezaDespesa}"]`).click(); // Seleciona a Natureza da Despesa conforme o parâmetro
-  cy.wait(500); // Aguarda 1 segundo para garantir que a natureza da despesa foi selecionada
+  cy.wait(500); // Aguarda 500ms para garantir que a Natureza da Despesa foi selecionada
 
   // Marcar os checkboxes de justificativa, conforme passado nos parâmetros
   if (justificativaObrigatoria) {

@@ -8,8 +8,8 @@ describe('Validar a Faixa de Financiamento', () => {
 
   it('Deve permitir que o usuário adicione uma Faixa de Financiamento', () => {
     const nomeFaixa = "Teste"; // Nome da faixa de financiamento
-    const valorMinimo = 4.00; // Valor mínimo
-    const valorMaximo = 40.00; // Valor máximo
+    const valorMinimo = 400.00; // Valor mínimo
+    const valorMaximo = 4000.00; // Valor máximo
     const observacao = "O Teste foi executado"; // Observação
 
     // Chama o comando reutilizável para preencher a faixa de financiamento
