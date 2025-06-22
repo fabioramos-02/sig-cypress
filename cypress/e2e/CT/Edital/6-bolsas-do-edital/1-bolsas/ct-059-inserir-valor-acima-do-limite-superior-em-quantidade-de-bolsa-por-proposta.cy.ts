@@ -7,17 +7,17 @@ describe('Validar adição de moeda estrangeira em Rubrica', () => {
     });
 
     it('Deve permitir que o usuário adicione uma Rubrica com Moeda Estrangeira', () => {
-        const modalidadeBolsa = 0; // Seleciona a primeira Modalidade de Bolsa
-        const nivelBolsa = 0; // Seleciona o primeiro Nível de Bolsa
+        const modalidadeBolsa = 0; // Seleciona a primeira Modalidade de Bolsa (DCT)
+        const nivelBolsa = 0; // Seleciona o primeiro Nível de Bolsa (0H - R$ 4.484,00)
         const quantidadeBolsa = true; // Marca a opção de quantidade de bolsas
-        const quantidade = 5; // Quantidade de bolsas
+        const quantidade = "999999999999999999999999"; // Quantidade acima do limite permitido
 
         // Preenche as informações de Bolsa com Moeda Estrangeira
         cy.preencherBolsas(modalidadeBolsa, nivelBolsa, quantidadeBolsa, quantidade);
         cy.preencherBolsas(modalidadeBolsa, nivelBolsa, quantidadeBolsa, quantidade);
 
 
-    
+
     });
 
     // Resultado esperado: O sistema deve permitir que o usuário salve e/ou prossiga para a próxima sub-step.
