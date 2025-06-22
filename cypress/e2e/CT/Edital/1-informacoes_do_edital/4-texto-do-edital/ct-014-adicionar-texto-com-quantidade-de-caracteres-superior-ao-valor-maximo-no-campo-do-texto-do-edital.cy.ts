@@ -12,6 +12,8 @@ describe('Adicionar texto com quantidade de caracteres superior ao valor máximo
         const textoTextoDoEdital = gerarLoremIpsum(5001); // Gera o texto com 5001 caracteres
         cy.preencherTextoDoEdital(textoTextoDoEdital); // Preenche o Texto do Edital com o texto de 5001 caracteres
 
+
+        
         // Clica no botão "Salvar" e tenta avançar para a próxima seção
         cy.salvarAndAvancar();
 

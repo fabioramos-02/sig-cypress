@@ -5,7 +5,7 @@ describe('Selecionar estados específicos na área de abrangência', () => {
 
     it('Deve permitir que o usuário selecione os estados Acre', () => {
         cy.preencherIdentificacaoDoEdital("Grupo-01 E.M. 005/2025 fabio-ramos Edital Médio"); // Preenche as informações do edital
-        cy.selecionarEstadosNaAbrangencia(['acre']); // Seleciona Acre e São Paulo
+        cy.selecionarEstadosNaAbrangencia(['acre']); // Seleciona Acre
 
         cy.get('.css-y8ykzc > .MuiTypography-root')
             .eq(0)

@@ -17,5 +17,7 @@ describe('Não selecionar nenhum estado na área de abrangência', () => {
 
         // Verifica que o sistema não permite salvar e avançar
         cy.get('[data-cy="next-button"]').should('be.disabled'); // Verifica que o botão "Próximo" está desabilitado
+
+        //Resultado esperado: O sistema deve alertar que o usuário necessita escolher ao menos um estado e não permitir que ele consiga salvar e/ou prosseguir para próxima sub-step.
     });
 });
