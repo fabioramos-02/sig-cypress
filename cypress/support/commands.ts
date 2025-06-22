@@ -3,6 +3,7 @@ import 'cypress-real-events';
 import 'cypress-file-upload'; // Importa o plugin de upload de arquivos
 
 import './utils'
+import { delay } from 'cypress/types/bluebird';
 
 // cypress/support/commands.ts
 Cypress.Commands.add('typelogin', () => {
@@ -437,7 +438,7 @@ Cypress.Commands.add('preencherBolsas', (modalidadeBolsa, nivelBolsa, quantidade
   // Verifica se o campo de Quantidade de Bolsa por Proposta precisa ser preenchido
   if (quantidadeBolsa) {
     cy.get('[data-cy="bolsaEditalUnsaved.possuiQuantidadeBolsaPorProposta"]').check(); // Marca o checkbox "Possui Quantidade de Bolsa por Proposta"
-    cy.get('[data-cy="bolsaEditalUnsaved.quantidadeBolsaPorProposta"]').clear().type(quantidade); // Preenche a quantidade de bolsas por proposta
+    cy.get('[data-cy="bolsaEditalUnsaved.quantidadeBolsaPorProposta"]').clear().type(quantidade, {delay: 0 }); // Preenche a quantidade de bolsas por proposta
   }
 
   // Clica em confirmar para salvar a Bolsa
