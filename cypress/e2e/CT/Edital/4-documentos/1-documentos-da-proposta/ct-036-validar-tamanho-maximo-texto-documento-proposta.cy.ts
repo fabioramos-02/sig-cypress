@@ -29,5 +29,5 @@ describe('Validar se o sistema aceita um texto com a quantidade de caracteres ma
       .should('contain.text', 'Documentos');  // Verifica se a aba 'Documentos' está visível
   });
 
-  // Resultado esperado:O sistema não deve permitir que o usuário salve e/ou prossiga para o próximo sub-step e deve apresentar uma mensagem informando que o Documento de Proposta contém mais caracteres que o permitido.
+  // Resultado esperado:O sistema não deve permitir que o Nome Documento da Proposta tenha mais de 128 caracteres
 });
