@@ -11,7 +11,6 @@ describe('Adicionar um indicador de produção', () => {
 
         // Adiciona o indicador de produção
         cy.adicionarIndicadorDeProducao(indicador); // Passa o nome do indicador
-
         // Verifica se o sistema permite salvar e avançar para a próxima seção
         cy.get('.css-y8ykzc > .MuiTypography-root')
             .eq(0)
