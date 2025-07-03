@@ -11,8 +11,9 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         //Informações do Edital
         preencherInformacoesDoEdital();
         preencherRestricoes();
-        preencherTermoDeAceite();
-        preencherTextoDoEdital();
+
+        cy.preencherTermoDeAceite("Termo de Aceite do Edital Completo do grupo 1 Fabio Ramos"); // Preenche o termo de aceite
+        cy.preencherTextoDoEdital("Texto do Edital Completo do grupo 1 Fabio Ramos"); // Preenche o texto do edital
         preencherAbrangencia();
         preencherInformacoesComplementares();
 
@@ -63,20 +64,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         cy.get('[data-cy="pesquisadorSubmeterVariasPropostas"]').check(); // Marca a opção "Pesquisador pode submeter várias propostas"
     };
 
-    // Função para preencher o Termo de Aceite do Edital
-    const preencherTermoDeAceite = () => {
-        cy.get('[data-cy="termo-de-aceite"]').click(); // Clica na aba Termo de Aceite
-        cy.get('.ck-editor__editable', { timeout: 5000 }).should('be.visible'); // Espera o editor carregar
-        cy.get('.ck-editor__editable').clear().realType('Termo de Aceite do Edital Completo do grupo Fabio Ramos', { delay: 0 }); // Insere o texto com realType
-    };
-
-    // Função para preencher o Texto do Edital
-    const preencherTextoDoEdital = () => {
-        cy.get('[data-cy="texto-do-edital"]').click(); // Clica na aba Texto do Edital
-        cy.get('.ck-editor__editable', { timeout: 5000 }).should('be.visible'); // Espera o editor carregar
-        cy.get('.ck-editor__editable').clear().realType('Texto do Edital Completo do grupo Fabio Ramos', { delay: 0 }); // Insere o texto com realType
-    };
-
+    
     // Função para preencher as Abrangências (selecionando estados)
     const preencherAbrangencia = () => {
         cy.get('[data-cy="abrangencia"]').click(); // Clica na aba Abrangência
@@ -103,7 +91,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas', 
         cy.get('[data-cy="periodo-de-submissao"]').click(); // Clica na aba Período de Submissão
         cy.get('[data-cy="add-button"]').click(); // Clica no botão "Adicionar" para criar um novo Período de Submissão
         cy.get('[data-cy="chamadaUnsaved.inicio"]').type(getCurrentDateTime()); // Preenche a data de início
-        cy.get('[data-cy="chamadaUnsaved.termino"]').type(getCurrentDateTime({ addYears: 1 })); // Preenche a data de término
+        cy.get('[data-cy="chamadaUnsaved.termino"]').type(getCurrentDateTime({ addDays: 5 })); // Preenche a data de término
         cy.get('[data-cy="chamada-confirmar"]').click(); // Confirma as datas do período de submissão
     };
 
