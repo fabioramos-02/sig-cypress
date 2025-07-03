@@ -1,6 +1,6 @@
 import { getCurrentDateTime } from "../../../helpers/date.helper";
 
-describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas - Proposta Média', () => {
+describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas - Proposta Completa', () => {
     beforeEach(() => {
         cy.login(1); // Realiza login com o perfil de pesquisador
     });
@@ -35,7 +35,7 @@ describe('Sistema Integrado de Gestão para Fundações de Amparo a Pesquisas - 
 
     // Função para preencher os dados obrigatórios da proposta
     const preencherInformacoesIniciais = () => {
-        cy.get('[data-cy="tituloDoProjeto"]').type('Submissão média', { delay: 0 }); // Preenche o campo "Título do Projeto"
+        cy.get('[data-cy="tituloDoProjeto"]').type('Submissão Completa', { delay: 0 }); // Preenche o campo "Título do Projeto"
 
         cy.get('[data-cy="instituicaoExecutoraId"]').click(); // Clica no campo "Instituição Executora"
         cy.get('[data-cy-index="instituicaoExecutoraId-item-1"]').click(); // Seleciona a instituição executora
